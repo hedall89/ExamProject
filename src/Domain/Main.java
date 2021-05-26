@@ -18,7 +18,7 @@ public class Main extends Application {
         preloader();
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/TimeToolUI.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/sample/TimeLineToolUI.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
