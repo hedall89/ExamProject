@@ -22,7 +22,7 @@ public class DBWrapper {
     public static void update(String sql) {
         try {
             prpstmt = DatabaseConnector.getConnection().prepareStatement(sql);
-            int result = prpstmt.executeUpdate();
+           int result = prpstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException();
