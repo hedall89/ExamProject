@@ -21,7 +21,6 @@ public class Controller {
     //private Rectangle r;
     private ContextMenu context;
     private MenuItem item1, item2, item3;
-    private Label labelText;
     ArrayList<postIt> PostIts = new ArrayList<postIt>();
 
 
@@ -41,7 +40,8 @@ public class Controller {
     public void DrawPostIt() {
 
         //Creating PostIt Text
-        labelText = new Label("Ny note");
+
+        Label labelText = new Label("Ny note");
         labelText.setLayoutX(31);
         labelText.setLayoutY(31);
 
@@ -132,9 +132,10 @@ public class Controller {
         //Removes textfield and updates Label
         AnchorPane.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ESCAPE)){
+
                 AnchorPane.getChildren().remove(tf);
-                labelText.setText(tf.getText());
-                p.setText(this.labelText);
+                PostItText.setText(tf.getText());
+                p.setText(PostItText);
             }
                 });
 
