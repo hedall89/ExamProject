@@ -1,18 +1,19 @@
 package Application;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+import javafx.scene.control.Label;
 
 public class postIt {
     private double x,y;
     private Rectangle r;
+    private Label text;
 
 
-    public postIt(double x, double y, Rectangle r) {
+    public postIt(double x, double y, Rectangle r, Label text) {
         this.x = x;
         this.y = y;
         this.r = r;
+        this.text = text;
     }
 
     public void setX(double x) {
@@ -31,8 +32,21 @@ public class postIt {
         return y;
     }
 
-    public void setColor(Color color){
-        r.setFill(color);
+    public Rectangle getR() {
+        return r;
+    }
+
+    public void setR(Rectangle r) {
+        this.r = r;
+    }
+
+    public Label getText() {
+        return text;
+    }
+
+    public void setText(Label text) {
+        this.text = text;
+
     }
 
     public void draw()  {
@@ -41,4 +55,10 @@ public class postIt {
         r.setTranslateX(x);
         r.setTranslateY(y);
     }
+
+    public void move(){
+        text.setLayoutX(x+1);
+        text.setLayoutY(y+1);
+    }
+
 }
