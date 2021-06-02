@@ -26,6 +26,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    //asdas
 
     public void preloader() {
         DatabaseConnector.createConnection();
