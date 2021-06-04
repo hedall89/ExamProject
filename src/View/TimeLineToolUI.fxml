@@ -2,9 +2,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTreeTableView?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1056.0" stylesheets="@Stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.DashboardController">
    <children>
       <VBox prefHeight="810.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@Stylesheet.css">
          <children>
@@ -26,14 +27,6 @@
             </Label>
             <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="250.0">
                <children>
-                  <FontAwesomeIconView glyphName="SEARCH" glyphStyle="-fx-fill:#7C8184" size="19" text="" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Calibri Light" size="14.0" />
-                     </font>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </FontAwesomeIconView>
                   <TextField promptText="Search" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
                      <font>
                         <Font name="Calibri Light" size="15.0" />
@@ -49,13 +42,10 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="88.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="55.0" prefWidth="250.0" styleClass="btns">
                <children>
-                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="250.0" text="Dashboard" textFill="#7c8184">
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="250.0" text="Dashboard" textFill="#7c8184">
                      <font>
                         <Font size="15.0" />
                      </font>
-                     <graphic>
-                        <FontAwesomeIconView glyphName="DASHBOARD" glyphStyle="-fx-fill:#7C8184" size="19" />
-                     </graphic>
                   </JFXButton>
                </children>
                <opaqueInsets>
@@ -70,13 +60,10 @@
                   <Insets left="10.0" />
                </opaqueInsets>
                <children>
-                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="250.0" text="Projects" textFill="#7c8184">
+                  <JFXButton fx:id="btnProject" alignment="BASELINE_LEFT" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="250.0" text="Projects" textFill="#7c8184">
                      <font>
                         <Font size="15.0" />
                      </font>
-                     <graphic>
-                        <FontAwesomeIconView glyphName="LIST" glyphStyle="-fx-fill:#7C8184" size="19" />
-                     </graphic>
                   </JFXButton>
                </children>
             </HBox>
@@ -85,13 +72,10 @@
                   <Insets left="10.0" />
                </opaqueInsets>
                <children>
-                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="250.0" text="Users" textFill="#7c8184">
+                  <JFXButton alignment="BASELINE_LEFT" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="250.0" text="Users" textFill="#7c8184">
                      <font>
                         <Font size="15.0" />
                      </font>
-                     <graphic>
-                        <FontAwesomeIconView glyphName="USER" glyphStyle="-fx-fill:#7C8184" size="19" />
-                     </graphic>
                   </JFXButton>
                </children>
             </HBox>
@@ -100,13 +84,10 @@
                   <Insets left="10.0" />
                </opaqueInsets>
                <children>
-                  <JFXButton alignment="BASELINE_LEFT" prefHeight="55.0" prefWidth="250.0" text="Export project" textFill="#7c8184">
+                  <JFXButton fx:id="btnExportProject" alignment="BASELINE_LEFT" onAction="#handleButtonAction" prefHeight="55.0" prefWidth="250.0" text="Export project" textFill="#7c8184">
                      <font>
                         <Font size="15.0" />
                      </font>
-                     <graphic>
-                        <FontAwesomeIconView glyphName="DOWNLOAD" glyphStyle="-fx-fill:#7C8184" size="19" />
-                     </graphic>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -138,35 +119,29 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <JFXButton alignment="CENTER" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Add User" textFill="WHITE">
+                  <JFXButton fx:id="btnAddUser" alignment="CENTER" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Add User" textFill="WHITE">
                      <VBox.margin>
                         <Insets left="30.0" />
                      </VBox.margin>
-                     <graphic>
-                        <FontAwesomeIconView glyphName="PLUS_CIRCLE" glyphStyle="-fx-fill:#fff" selectionFill="#fcf8f8" size="19.0" />
-                     </graphic>
                      <font>
                         <Font size="14.0" />
                      </font>
                   </JFXButton>
                </children>
             </VBox>
-            <JFXButton alignment="CENTER" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Log Out" textFill="WHITE">
+            <JFXButton fx:id="btnLogOut" alignment="CENTER" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Log Out" textFill="WHITE">
                <VBox.margin>
                   <Insets bottom="20.0" left="30.0" />
                </VBox.margin>
-               <graphic>
-                  <FontAwesomeIconView glyphName="SIGN_OUT" glyphStyle="-fx-fill:#fff" size="19" />
-               </graphic>
                <font>
                   <Font size="14.0" />
                </font>
             </JFXButton>
          </children>
       </VBox>
-      <VBox layoutX="250.0" prefHeight="810.0" prefWidth="807.0" styleClass="parent" stylesheets="@Stylesheet.css">
+      <VBox fx:id="Vbox" layoutX="250.0" prefHeight="810.0" prefWidth="807.0" styleClass="parent" stylesheets="@Stylesheet.css">
          <children>
-            <Pane prefHeight="71.0" prefWidth="807.0">
+            <Pane prefHeight="71.0" prefWidth="807.0" stylesheets="@Stylesheet.css">
                <children>
                   <Label fx:id="lblWindow" layoutX="23.0" layoutY="21.0" text="Dashboard" textFill="#7c8184">
                      <font>
@@ -175,6 +150,46 @@
                   </Label>
                </children>
             </Pane>
+            <HBox prefHeight="740.0" prefWidth="807.0">
+               <children>
+                  <Pane fx:id="paneProjects" prefHeight="669.0" prefWidth="807.0">
+                     <children>
+                        <JFXButton fx:id="btnNewStory" layoutX="142.0" layoutY="628.0" onAction="#handleButtonAction" prefHeight="61.0" prefWidth="149.0" style="-fx-background-color: #00A2D3;" text="New Story" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                        <TableView layoutX="68.0" layoutY="108.0" prefHeight="457.0" prefWidth="277.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                        <TableView layoutX="444.0" layoutY="108.0" prefHeight="457.0" prefWidth="277.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="C1" />
+                              <TableColumn prefWidth="75.0" text="C2" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="169.0" layoutY="60.0" text="Single User">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="548.0" layoutY="60.0" text="Multi User">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <JFXButton fx:id="btnDeleteStory" layoutX="508.0" layoutY="629.0" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="149.0" style="-fx-background-color: #00A2D3;" text="Delete Story" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </Pane>
+               </children>
+            </HBox>
          </children></VBox>
    </children>
 </AnchorPane>

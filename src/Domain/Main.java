@@ -15,10 +15,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        preloader();
+        //preloader();
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/TimeLineToolUI.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/Login.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
