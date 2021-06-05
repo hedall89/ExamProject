@@ -17,6 +17,8 @@
       <AnchorPane fx:id="AnchorPane" prefHeight="591.0" prefWidth="702.0">
          <children>
             <Button layoutX="138.0" layoutY="65.0" mnemonicParsing="false" onAction="#Add" text="Add PostIt" />
+            <Button layoutX="297.0" layoutY="65.0" mnemonicParsing="false" onAction="#loadProject" text="Load " />
+            <Button layoutX="223.0" layoutY="65.0" mnemonicParsing="false" onAction="#saveProject" text="Save" />
          </children></AnchorPane>
    </children>
 </GridPane>

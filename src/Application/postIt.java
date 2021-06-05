@@ -61,4 +61,8 @@ public class postIt {
         text.setLayoutY(y+1);
     }
 
+    @Override
+    public String toString() {
+        return text.getText();
+    }
 }
