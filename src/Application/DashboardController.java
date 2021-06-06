@@ -49,6 +49,10 @@ public class DashboardController {
 
         }
 
+        if (event.getSource() == btnLogOut){
+
+        }
+
     }
 
 }
