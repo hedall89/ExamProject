@@ -1,12 +1,13 @@
 package Application;
 
-import com.jfoenix.controls.JFXButton;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -25,7 +26,7 @@ public class LoginController {
     private TextField txtCAPassword, txtLoginPassword, txtLoginUserName;
 
     @FXML
-    private JFXButton btnCreateAccount, btnCancelCreateAccount, btnLoginCreateAccount, btnLogin, btnLoginCancel;
+    private Button btnCreateAccount, btnCancelCreateAccount, btnLoginCreateAccount, btnLogin, btnLoginCancel;
 
 
     @FXML
