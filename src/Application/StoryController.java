@@ -12,27 +12,40 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 
-public class Controller {
+public class StoryController {
     private MenuItem item1, item2, item3;
     ArrayList<postIt> PostIts = new ArrayList<postIt>();
+    public URL path = getClass().getResource("/SavedFiles");
+
+
+
+    @FXML
+    private AnchorPane ap;
+
+    @FXML
+    private Label lblStory;
 
 
     public void initialize() {
-
+        loadFromTextFile();
+        System.out.println(DashboardController.selectedProject.getName());
     }
 
-    @FXML
-    public javafx.scene.layout.AnchorPane AnchorPane;
+
 
     @FXML
-    void Add(ActionEvent event) {
+    void addPostIt(ActionEvent event) {
         DrawPostIt();
     }
 
@@ -52,7 +65,7 @@ public class Controller {
         postIt p = new postIt(rectX,rectY,rect,labelText);
         //adding it to Arraylist
         PostIts.add(p);
-        AnchorPane.getChildren().addAll(rect,labelText);
+        ap.getChildren().addAll(rect,labelText);
         //drawing rectangle(PostIt)
         p.draw();
 
@@ -95,7 +108,7 @@ public class Controller {
         //only right click to show contextmenu
         if(event.getButton() == MouseButton.SECONDARY){
 
-            context.show(AnchorPane,event.getScreenX(),event.getScreenY());
+            context.show(ap,event.getScreenX(),event.getScreenY());
         }
 
         item1.setOnAction((ActionEvent actionEvent) -> {
@@ -123,13 +136,13 @@ public class Controller {
         tf.setLayoutX(p.getX() + 1);
         tf.setLayoutY(p.getY() + 1);
 
-        AnchorPane.getChildren().add(tf);
+        ap.getChildren().add(tf);
 
         //Removes textfield and updates Label
-        AnchorPane.setOnKeyPressed(event -> {
+        ap.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ESCAPE)){
 
-                AnchorPane.getChildren().remove(tf);
+                ap.getChildren().remove(tf);
                 PostItText.setText(tf.getText());
                 p.setText(PostItText);
             }
@@ -138,12 +151,12 @@ public class Controller {
     }
 
     public void removePostIt(postIt p) {
-        AnchorPane.getChildren().removeAll(p.getR(),p.getText());
+        ap.getChildren().removeAll(p.getR(),p.getText());
         PostIts.remove(p);
     }
 
     @FXML
-    void loadProject(ActionEvent event) {
+    public void loadProject(ActionEvent event) {
         loadFromTextFile();
     }
 
@@ -157,8 +170,10 @@ public class Controller {
         removeAllPostIts();
         PostIts.clear();
 
+        System.out.println(path.getPath() + "/" + DashboardController.selectedProject);
+
         try {
-            LineNumberReader lineNumberReader = new LineNumberReader(new FileReader("SaveFilePostIt.txt"));
+            LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(path.getPath() + "/" + DashboardController.selectedProject.getName()));
             lineNumberReader.skip(Long.MAX_VALUE);
             lineMax = lineNumberReader.getLineNumber();
 
@@ -170,7 +185,7 @@ public class Controller {
 
         //Load TextFile
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("SaveFilePostIt.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(path.getPath() + "/" + DashboardController.selectedProject.getName()));
 
 
             for (int i = 0; i < lineMax/3; i++) {
@@ -191,7 +206,7 @@ public class Controller {
                 postIt p = new postIt(rectX,rectY,rect,labelText);
                 //adding it to Arraylist
                 PostIts.add(p);
-                AnchorPane.getChildren().addAll(rect,labelText);
+                ap.getChildren().addAll(rect,labelText);
                 p.draw();
 
                 //drag event for every postIt
@@ -206,14 +221,14 @@ public class Controller {
         }
         catch (Exception e){
 
-            System.out.println("FUCK");
+            System.out.println("fejl, den kunne ikke loade filen");
         }
 
     }
 
     private void removeAllPostIts() {
         for (Application.postIt postIt : PostIts) {
-            AnchorPane.getChildren().removeAll(postIt.getR(), postIt.getText());
+            ap.getChildren().removeAll(postIt.getR(), postIt.getText());
 
         }
     }
@@ -225,22 +240,15 @@ public class Controller {
 
     private void saveToTextFile() {
 
-
-        //gets info from all the PostIts (no text)
-
-        for (int i = 0; i < PostIts.size(); i++) {
-            System.out.println("PostIt " + i + " " + PostIts.get(i).getX() + " " + PostIts.get(i).getY());
-        }
-
         try{
 
-            File savedFile = new File("SaveFilePostIt.txt");
+            File savedFile = new File(path.getPath() + "/" + DashboardController.selectedProject.getName());
             if (savedFile.createNewFile()){
                 System.out.println("File Created");
             }else {
-                System.out.println("file Already exist");
+                System.out.println("file OverWritten");
 
-                BufferedWriter wr = new BufferedWriter(new FileWriter("SaveFilePostIt.txt"));
+                BufferedWriter wr = new BufferedWriter(new FileWriter(path.getPath() + "/" + DashboardController.selectedProject.getName()));
 
                 for (Application.postIt postIt : PostIts) {
                     wr.write("" + postIt.getX());
