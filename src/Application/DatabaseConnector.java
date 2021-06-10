@@ -14,7 +14,7 @@ public class DatabaseConnector {
 
     public static java.sql.Connection createConnection() {
         try {
-            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=autocamper", "sa", "123456");
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=postit", "sa", "123456");
             System.out.println("Connected");
         } catch (SQLException e) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, (String) null, e);

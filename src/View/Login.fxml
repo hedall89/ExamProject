@@ -24,6 +24,7 @@
                   <Button fx:id="btnLoginCreateAccount" layoutX="139.0" layoutY="440.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #3251ee;" text="Create Account" textFill="WHITE" />
                   <Button fx:id="btnLoginCancel" layoutX="214.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #3251ee;" text="Cancel" textFill="WHITE" />
                   <Button fx:id="btnLogin" layoutX="66.0" layoutY="357.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="47.0" prefWidth="109.0" style="-fx-background-color: #3251ee;" text="Login" textFill="WHITE" />
+                  <Label fx:id="lblError" alignment="CENTER" layoutX="121.0" layoutY="296.0" prefHeight="17.0" prefWidth="149.0" textFill="#eb2e2e" />
                </children>
             </Pane>
          </children>
