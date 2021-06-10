@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import static Application.LoginController.loadStage;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 public class DashboardController {
 
@@ -74,6 +75,7 @@ public class DashboardController {
         }
 
         if (event.getSource() == btnNewStory){
+
             loadStage("/View/newStory.fxml");
 
         }
@@ -95,7 +97,7 @@ public class DashboardController {
         }
     }
 
-    public void initialize() {
+    public void initialize(URL location, ResourceBundle resources){
         singleUserProjects();
         loadStory();
 
