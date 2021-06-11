@@ -46,7 +46,6 @@ public class postIt {
 
     public void setText(Label text) {
         this.text = text;
-
     }
 
     public void draw()  {

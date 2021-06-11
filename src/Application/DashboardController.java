@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
@@ -33,17 +35,21 @@ import java.util.ResourceBundle;
 public class DashboardController {
 
     @FXML
-    private Button btnProjects, btnLogOut, btnAddUser, btnExportProject, btnNewStory, btnDeleteStory, btnCreateStory;
+    private Button btnProjects, btnLogOut, btnAddUser, btnExportProject, btnNewStory, btnDeleteStory, btnCreateStory,
+            btnStoryBack, btnStoryAddPostit, btnStorySave;
 
     @FXML
     private TextField txtStoryName;
     @FXML
     private RadioButton rdbSingleUser, rdbMultiUser;
     @FXML
-    private Label lblWindow;
+    private Label lblWindow, lblStory;
 
     @FXML
     private Pane paneProjects;
+
+    @FXML
+    private AnchorPane Ap;
 
     @FXML
     private TableView<savedFile> tblViewSingleUser;
@@ -67,6 +73,14 @@ public class DashboardController {
 
         }
 
+        if (event.getSource()== btnStoryBack){
+            loadStage("/View/TimeLineToolUI.fxml");
+
+            Node n = (Node) event.getSource();
+            Stage previousStage = (Stage) n.getScene().getWindow();
+            previousStage.close();
+        }
+
         if (event.getSource() == btnLogOut){
             loadStage("/View/Login.fxml");
             Node n = (Node) event.getSource();
@@ -75,7 +89,6 @@ public class DashboardController {
         }
 
         if (event.getSource() == btnNewStory){
-
             loadStage("/View/newStory.fxml");
 
         }
@@ -97,10 +110,10 @@ public class DashboardController {
         }
     }
 
+
     public void initialize(URL location, ResourceBundle resources){
         singleUserProjects();
         loadStory();
-
     }
 
     private void singleUserProjects() {
@@ -123,7 +136,6 @@ public class DashboardController {
             }
 
         }
-
         insertSavedProjectsToTable();
         }
 
@@ -139,31 +151,30 @@ public class DashboardController {
 
 
 
-
     }
 
     public void loadStory(){
 
         tblViewSingleUser.setOnMouseClicked(click -> {
-            if (click.getClickCount() == 2) {
-                selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
-                System.out.println(selectedProject.getName());
+                if (click.getClickCount() == 2) {
+                    selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
+                    System.out.println(selectedProject.getName());
 
-                //open StoryUI Window
-                loadStage("/View/StoryUI.fxml");
+                    //open StoryUI Window
+                    loadStage("/View/StoryUI.fxml");
 
-                //close TimeLineToolUI
-                Node n = (Node) click.getSource();
-                Stage previousStage = (Stage) n.getScene().getWindow();
-                previousStage.close();
+                    //close TimeLineToolUI
+                    Node n = (Node) click.getSource();
+                    Stage previousStage = (Stage) n.getScene().getWindow();
+                    previousStage.close();
 
-            }
-        });
-
-
+                }
+            });
 
 
     }
+
+
 
 
 }

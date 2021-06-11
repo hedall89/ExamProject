@@ -18,7 +18,7 @@ public class Main extends Application {
         //preloader();
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/View/Login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/View/StoryUI.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
