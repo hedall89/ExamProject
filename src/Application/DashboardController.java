@@ -80,7 +80,7 @@ public class DashboardController {
 
         }
 
-    }
+        }
 
 
     // Method for Switching between Stages
@@ -129,6 +129,10 @@ public class DashboardController {
 
 
     private void insertSavedProjectsToTable() {
+        savedTextFiles.clear();
+
+        TextFileDAO textFileDAO = new TextFileDAOImpl();
+        savedTextFiles = textFileDAO.allFilesInFolder();
 
         //sets textFileName and dateModified in the correct column
         col_singleUserName.setCellValueFactory(new PropertyValueFactory<savedFile, String>("name"));
@@ -142,8 +146,7 @@ public class DashboardController {
 
     }
 
-    public void loadStory(){
-
+    public void loadStory() {
         tblViewSingleUser.setOnMouseClicked(click -> {
             if (click.getClickCount() == 2) {
                 selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
@@ -159,8 +162,8 @@ public class DashboardController {
 
             }
         });
-
-
+        
+        
 
 
     }
