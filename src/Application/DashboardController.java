@@ -4,7 +4,6 @@ package Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
@@ -24,8 +22,8 @@ import static Application.LoginController.loadStage;
 public class DashboardController {
 
     @FXML
-    private Button btnProjects, btnLogOut, btnAddUser, btnExportProject, btnNewStory, btnDeleteStory;
-
+    private Button btnProjects, btnLogOut, btnAddUser, btnExportProject, btnNewStory,
+            btnDeleteStory, btnCreateNewStory, btnCancelStory;
 
     @FXML
     private VBox Vbox;
@@ -45,57 +43,42 @@ public class DashboardController {
     @FXML
     private TableColumn<savedFile, String> col_singleUserDateModified;
 
+    @FXML
+    private Pane pnlCreateStory;
+
+
     ObservableList<savedFile> savedTextFiles = FXCollections.observableArrayList();
 
     public static savedFile selectedProject;
 
+
     @FXML
     void handleButtonAction(ActionEvent event) {
 
-        if (event.getSource()== btnProjects){
-        paneProjects.toFront();
-        lblWindow.setText("Projects");
+        if (event.getSource() == btnProjects) {
+            paneProjects.toFront();
+            lblWindow.setText("Projects");
+
 
         }
 
-        if (event.getSource() == btnLogOut){
+        if (event.getSource() == btnLogOut) {
 
         }
 
     }
 
     public void initialize() {
-        singleUserProjects();
         loadStory();
+        insertSavedProjectsToTable();
 
     }
 
-    private void singleUserProjects() {
-
+    private void insertSavedProjectsToTable() {
         savedTextFiles.clear();
 
-        //path to folder
-        URL path = getClass().getResource("/SavedFiles");
-
-        File folder = new File(String.valueOf(path.getPath()));
-        File[] files = folder.listFiles();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        //Enchanted forLoop that
-        for (File file : files) {
-            if (file.isFile()) {
-                savedTextFiles.add(new savedFile(file.getName(), sdf.format(file.lastModified())));
-            } else{
-                System.out.println("gejl");
-            }
-
-        }
-
-        insertSavedProjectsToTable();
-        }
-
-
-    private void insertSavedProjectsToTable() {
+        TextFileDAO textFileDAO = new TextFileDAOImpl();
+        savedTextFiles = textFileDAO.allFilesInFolder();
 
         //sets textFileName and dateModified in the correct column
         col_singleUserName.setCellValueFactory(new PropertyValueFactory<savedFile, String>("name"));
@@ -104,13 +87,10 @@ public class DashboardController {
         //loads the textfile names and Date modified from array
         tblViewSingleUser.setItems(savedTextFiles);
 
-
-
-
     }
 
-    public void loadStory(){
-        
+    public void loadStory() {
+
         tblViewSingleUser.setOnMouseClicked(click -> {
             if (click.getClickCount() == 2) {
                 selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
@@ -126,11 +106,14 @@ public class DashboardController {
 
             }
         });
-        
-        
-
 
     }
 
+    @FXML
+    void handleNewStory(ActionEvent event) {
+        if (event.getSource() == btnNewStory) {
+        }
 
+
+    }
 }

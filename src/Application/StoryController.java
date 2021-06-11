@@ -2,24 +2,17 @@ package Application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
-import java.awt.*;
-import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -39,7 +32,6 @@ public class StoryController {
 
     public void initialize() {
         loadFromTextFile();
-        System.out.println(DashboardController.selectedProject.getName());
     }
 
 
@@ -155,76 +147,33 @@ public class StoryController {
         PostIts.remove(p);
     }
 
-    @FXML
-    public void loadProject(ActionEvent event) {
-        loadFromTextFile();
-    }
-
     private void loadFromTextFile() {
-        double rectX = 0;
-        double rectY = 0;
-        Label labelText = null;
-        int lineMax = 0;
-
         //Removing not saved PostIt, before adding saved PostIts
         removeAllPostIts();
         PostIts.clear();
 
         System.out.println(path.getPath() + "/" + DashboardController.selectedProject);
 
-        try {
-            LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(path.getPath() + "/" + DashboardController.selectedProject.getName()));
-            lineNumberReader.skip(Long.MAX_VALUE);
-            lineMax = lineNumberReader.getLineNumber();
+        //uses TextfileDAO interface to gather all postIts objects made in the textfile.
+        TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
+        PostIts = postItTextDAO.loadTextFile();
 
-            System.out.println(lineNumberReader.getLineNumber());
-        }catch (Exception e){
+        for (Application.postIt postIt : PostIts) {
 
-        }
+            //Drawing all PostIts
+            ap.getChildren().addAll(postIt.getR(), postIt.getText());
+            postIt.draw();
 
+            //dragable PostIts
+            postIt.getR().setOnMouseDragged(event -> dragPostIt(event, postIt));
 
-        //Load TextFile
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(path.getPath() + "/" + DashboardController.selectedProject.getName()));
-
-
-            for (int i = 0; i < lineMax/3; i++) {
-                //Reading PostIts x and y from textFile
-                rectX = Double.parseDouble(reader.readLine());
-                rectY = Double.parseDouble(reader.readLine());
-
-                //Reading Text from TextFile and sets text x and y
-                labelText = new Label(reader.readLine());
-                labelText.setLayoutX(rectX+1);
-                labelText.setLayoutY(rectY+1);
-
-                //Drawing PostIts
-                Rectangle rect = new Rectangle();
-                rect.setFill(Color.WHITE);
-                rect.setStroke(Color.GRAY);
-
-                postIt p = new postIt(rectX,rectY,rect,labelText);
-                //adding it to Arraylist
-                PostIts.add(p);
-                ap.getChildren().addAll(rect,labelText);
-                p.draw();
-
-                //drag event for every postIt
-                rect.setOnMouseDragged(event -> dragPostIt(event, p));
-
-                //Context menu set on Mouseclick(right)
-                rect.setOnMouseClicked(event -> postItOptions(event, p));
-            }
-
-            reader.close();
-
-        }
-        catch (Exception e){
-
-            System.out.println("fejl, den kunne ikke loade filen");
+            //Context menu set on Mouseclick(right)
+            postIt.getR().setOnMouseClicked(event -> postItOptions(event, postIt));
         }
 
     }
+
+
 
     private void removeAllPostIts() {
         for (Application.postIt postIt : PostIts) {
@@ -235,42 +184,8 @@ public class StoryController {
 
     @FXML
     void saveProject(ActionEvent event){
-        saveToTextFile();
-    }
-
-    private void saveToTextFile() {
-
-        try{
-
-            File savedFile = new File(path.getPath() + "/" + DashboardController.selectedProject.getName());
-            if (savedFile.createNewFile()){
-                System.out.println("File Created");
-            }else {
-                System.out.println("file OverWritten");
-
-                BufferedWriter wr = new BufferedWriter(new FileWriter(path.getPath() + "/" + DashboardController.selectedProject.getName()));
-
-                for (Application.postIt postIt : PostIts) {
-                    wr.write("" + postIt.getX());
-                    wr.newLine();
-                    wr.write("" + postIt.getY());
-                    wr.newLine();
-                    wr.write("" + postIt.toString());
-                    wr.newLine();
-
-
-                }
-                wr.close();
-
-            }
-
-        }catch (IOException e){
-            System.out.println("Error");
-        }
-
-
-
-
+        TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
+        postItTextDAO.saveTextFile();
     }
 
 }

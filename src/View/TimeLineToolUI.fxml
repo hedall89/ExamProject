@@ -156,7 +156,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Button layoutX="132.0" layoutY="629.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="149.0" style="-fx-background-color: #00A2D3;" text="New Story" textFill="WHITE">
+                        <Button fx:id="btnNewStory" layoutX="132.0" layoutY="629.0" mnemonicParsing="false" onAction="#handleNewStory" prefHeight="61.0" prefWidth="149.0" style="-fx-background-color: #00A2D3;" text="New Story" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
