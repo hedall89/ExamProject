@@ -6,10 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,16 +14,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import java.io.File;
-import java.net.URL;
-import java.text.SimpleDateFormat;
 import static Application.LoginController.loadStage;
+import javafx.scene.layout.VBox;
 
-import java.io.IOException;
+import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DashboardController {
@@ -75,60 +68,62 @@ public class DashboardController {
         }
 
         if (event.getSource() == btnNewStory){
+            //closing TimeLineToolUI
+            Node n = (Node) event.getSource();
+            Stage previousStage = (Stage) n.getScene().getWindow();
+            previousStage.close();
 
             loadStage("/View/newStory.fxml");
 
+
+
         }
 
+        if (event.getSource() == btnCreateStory){
+            //Opens storyUI
+            loadStage("/View/StoryUI.fxml");
+
+            //closing newStory
+            Node n = (Node) event.getSource();
+            Stage previousStage = (Stage) n.getScene().getWindow();
+            previousStage.close();
+
+        }
+        if(event.getSource() == btnDeleteStory){
+
+            deleteStory();
+        }
         }
 
+    private void deleteStory() {
+        TextFileDAO textFileDAO = new TextFileDAOImpl();
 
-    // Method for Switching between Stages
-    public static void loadStage(String fxml) {
+        System.out.println(selectedProject);
 
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(fxml));
-            Parent my_root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(my_root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //deleting selected file
+        textFileDAO.deleteTextFile();
+
+        //updating table
+        updateSingleUserTable();
+
     }
 
-    public void initialize(URL location, ResourceBundle resources){
-        singleUserProjects();
-        loadStory();
+    public void initialize(){
+        updateSingleUserTable();
+       loadStory();
+       selectedProjectInTable();
+     }
 
-    }
-
-    private void singleUserProjects() {
-
-        savedTextFiles.clear();
-
-        //path to folder
-        URL path = getClass().getResource("/SavedFiles");
-
-        File folder = new File(String.valueOf(path.getPath()));
-        File[] files = folder.listFiles();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        //Enchanted forLoop that
-        for (File file : files) {
-            if (file.isFile()) {
-                savedTextFiles.add(new savedFile(file.getName(), sdf.format(file.lastModified())));
-            } else{
-                System.out.println("gejl");
+    private void selectedProjectInTable() {
+        tblViewSingleUser.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
             }
+        });
+    }
 
-        }
-
-        insertSavedProjectsToTable();
-        }
-
-
-    private void insertSavedProjectsToTable() {
+    private void updateSingleUserTable() {
         savedTextFiles.clear();
 
         TextFileDAO textFileDAO = new TextFileDAOImpl();
@@ -162,9 +157,19 @@ public class DashboardController {
 
             }
         });
-        
-        
 
+    }
+
+
+
+    @FXML
+    void storySelectorOnAction(ActionEvent event) {
+        if (rdbSingleUser.isSelected()){
+            selectedProject = new savedFile(txtStoryName.getText(),null);
+        }
+        if (rdbMultiUser.isSelected()){
+
+        }
 
     }
 

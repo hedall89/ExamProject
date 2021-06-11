@@ -13,12 +13,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
 public class StoryController {
     private MenuItem item1, item2, item3;
-    ArrayList<postIt> PostIts = new ArrayList<postIt>();
+    static ArrayList<postIt> PostIts = new ArrayList<postIt>();
     public URL path = getClass().getResource("/SavedFiles");
 
 
@@ -31,9 +32,18 @@ public class StoryController {
 
 
     public void initialize() {
-        loadFromTextFile();
+        storyManagement();
     }
 
+    private void storyManagement() {
+        TextFileDAO textFileDAO = new TextFileDAOImpl();
+        if (textFileDAO.textFileCheck()) {
+            loadFromTextFile();
+            System.out.println("loading existing file");
+        }
+
+
+    }
 
 
     @FXML
@@ -186,6 +196,7 @@ public class StoryController {
     void saveProject(ActionEvent event){
         TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
         postItTextDAO.saveTextFile();
+        System.out.println("saving");
     }
 
 }
