@@ -99,7 +99,7 @@
                         </TreeTableView>
                      </children>
                   </HBox>
-                  <Button fx:id="btnAddUser" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Add user" textFill="WHITE">
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Add user" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -107,7 +107,7 @@
                         <Insets left="30.0" top="40.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="btnLogOut" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Log Out" textFill="WHITE">
+                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Log Out" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>

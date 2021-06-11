@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
@@ -89,58 +87,66 @@ public class DashboardController {
         }
 
         if (event.getSource() == btnNewStory){
+            //closing TimeLineToolUI
+            Node n = (Node) event.getSource();
+            Stage previousStage = (Stage) n.getScene().getWindow();
+            previousStage.close();
+
             loadStage("/View/newStory.fxml");
 
+
+
+    }
+
+        if (event.getSource() == btnCreateStory){
+            //Opens storyUI
+            loadStage("/View/StoryUI.fxml");
+
+            //closing newStory
+            Node n = (Node) event.getSource();
+            Stage previousStage = (Stage) n.getScene().getWindow();
+            previousStage.close();
+
+        }
+        if(event.getSource() == btnDeleteStory){
+
+            deleteStory();
+        }
         }
 
+    private void deleteStory() {
+        TextFileDAO textFileDAO = new TextFileDAOImpl();
+
+        System.out.println(selectedProject);
+
+        //deleting selected file
+        textFileDAO.deleteTextFile();
+
+        //updating table
+        updateSingleUserTable();
+
     }
 
+    public void initialize(){
+        updateSingleUserTable();
+       loadStory();
+       selectedProjectInTable();
+     }
 
-    // Method for Switching between Stages
-    public static void loadStage(String fxml) {
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource(fxml));
-            Parent my_root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(my_root));
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void selectedProjectInTable() {
+        tblViewSingleUser.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
+            }
+        });
     }
 
-
-    public void initialize(URL location, ResourceBundle resources){
-        singleUserProjects();
-        loadStory();
-    }
-
-    private void singleUserProjects() {
-
+    private void updateSingleUserTable() {
         savedTextFiles.clear();
 
-        //path to folder
-        URL path = getClass().getResource("/SavedFiles");
-
-        File folder = new File(String.valueOf(path.getPath()));
-        File[] files = folder.listFiles();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        //Enchanted forLoop that
-        for (File file : files) {
-            if (file.isFile()) {
-                savedTextFiles.add(new savedFile(file.getName(), sdf.format(file.lastModified())));
-            } else{
-                System.out.println("gejl");
-            }
-
-        }
-        insertSavedProjectsToTable();
-        }
-
-
-    private void insertSavedProjectsToTable() {
+        TextFileDAO textFileDAO = new TextFileDAOImpl();
+        savedTextFiles = textFileDAO.allFilesInFolder();
 
         //sets textFileName and dateModified in the correct column
         col_singleUserName.setCellValueFactory(new PropertyValueFactory<savedFile, String>("name"));
@@ -151,30 +157,40 @@ public class DashboardController {
 
 
 
+
     }
 
-    public void loadStory(){
-
+    public void loadStory() {
         tblViewSingleUser.setOnMouseClicked(click -> {
-                if (click.getClickCount() == 2) {
-                    selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
-                    System.out.println(selectedProject.getName());
+            if (click.getClickCount() == 2) {
+                selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
+                System.out.println(selectedProject.getName());
 
-                    //open StoryUI Window
-                    loadStage("/View/StoryUI.fxml");
+                //open StoryUI Window
+                loadStage("/View/StoryUI.fxml");
 
-                    //close TimeLineToolUI
-                    Node n = (Node) click.getSource();
-                    Stage previousStage = (Stage) n.getScene().getWindow();
-                    previousStage.close();
+                //close TimeLineToolUI
+                Node n = (Node) click.getSource();
+                Stage previousStage = (Stage) n.getScene().getWindow();
+                previousStage.close();
 
-                }
-            });
-
+            }
+        });
 
     }
 
 
+
+    @FXML
+    void storySelectorOnAction(ActionEvent event) {
+        if (rdbSingleUser.isSelected()){
+            selectedProject = new savedFile(txtStoryName.getText(),null);
+        }
+        if (rdbMultiUser.isSelected()){
+
+        }
+
+    }
 
 
 }

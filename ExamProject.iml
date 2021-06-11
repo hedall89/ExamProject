@@ -10,6 +10,5 @@
     <orderEntry type="library" name="mssql-jdbc-9.2.1.jre8" level="project" />
     <orderEntry type="library" name="fontawesomefx-8.9" level="project" />
     <orderEntry type="library" name="jfoenix-9.0.8" level="project" />
-    <orderEntry type="library" name="sqljdbc4" level="project" />
   </component>
 </module>
