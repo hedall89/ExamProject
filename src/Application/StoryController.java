@@ -2,6 +2,7 @@ package Application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -15,12 +16,14 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class StoryController {
     private MenuItem item1, item2, item3;
     static ArrayList<postIt> PostIts = new ArrayList<postIt>();
-    public URL path = getClass().getResource("/SavedFiles");
+    Path path = Paths.get("src/SavedFiles");
 
 
 
@@ -162,7 +165,8 @@ public class StoryController {
         removeAllPostIts();
         PostIts.clear();
 
-        System.out.println(path.getPath() + "/" + DashboardController.selectedProject);
+
+        System.out.println(path + "/" + DashboardController.selectedProject.getName());
 
         //uses TextfileDAO interface to gather all postIts objects made in the textfile.
         TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
