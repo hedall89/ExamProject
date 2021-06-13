@@ -24,14 +24,14 @@
             </ImageView>
             <Label layoutX="93.0" layoutY="285.0" text="Create Account" textFill="WHITE">
                <font>
-                  <Font size="17.0" />
+                  <Font name="Arial Rounded MT Bold" size="17.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #b1b1b1;" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="127.0" layoutY="149.0" text="Login">
                <font>

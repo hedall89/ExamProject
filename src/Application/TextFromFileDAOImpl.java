@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class TextFromFileDAOImpl implements TextFromFileDAO {
-    String path = "C://Users/bollo/IdeaProjects/ExamProject/src/SavedFiles/";
+    Path path = Paths.get("src/SavedFiles");
 
     @Override
     public ArrayList<postIt> loadTextFile() {

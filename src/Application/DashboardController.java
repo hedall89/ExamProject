@@ -6,10 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,13 +14,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import java.io.File;
-import java.net.URL;
-import java.text.SimpleDateFormat;
+
 import static Application.LoginController.loadStage;
 
 import java.io.IOException;
@@ -34,7 +29,7 @@ public class DashboardController {
 
     @FXML
     private Button btnProjects, btnLogOut, btnAddUser, btnExportProject, btnNewStory, btnDeleteStory, btnCreateStory,
-            btnStoryBack, btnStoryAddPostit, btnStorySave;
+            btnStoryBack, btnStoryAddPostit, btnStorySave, btnUsers;
 
     @FXML
     private TextField txtStoryName;
@@ -44,7 +39,7 @@ public class DashboardController {
     private Label lblWindow, lblStory;
 
     @FXML
-    private Pane paneProjects;
+    private Pane paneUsers, paneProjects;
 
     @FXML
     private AnchorPane Ap;
@@ -68,8 +63,12 @@ public class DashboardController {
         if (event.getSource()== btnProjects){
         paneProjects.toFront();
         lblWindow.setText("Projects");
-
         }
+        else if (event.getSource() == btnUsers){
+            paneUsers.toFront();
+            lblWindow.setText("Users");
+        }
+
 
         if (event.getSource()== btnStoryBack){
             loadStage("/View/TimeLineToolUI.fxml");

@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 public class TextFileDAOImpl implements TextFileDAO {
     ObservableList<savedFile> allSavedFiles = FXCollections.observableArrayList();
 
-    String path = "C://Users/bollo/IdeaProjects/ExamProject/src/SavedFiles/";
+    Path path = Paths.get("src/SavedFiles");
 
     @Override
     public ObservableList<savedFile> allFilesInFolder() {

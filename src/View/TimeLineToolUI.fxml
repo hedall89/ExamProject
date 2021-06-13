@@ -5,171 +5,157 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1056.0" stylesheets="@Stylesheet.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.DashboardController">
-   <children>
-      <VBox prefHeight="810.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@Stylesheet.css">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1056.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.DashboardController">
+   <left>
+      <AnchorPane prefHeight="810.0" prefWidth="250.0" styleClass="sidebar" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="70.0" prefWidth="250.0" style="-fx-background-color: #00A2D3;" text="TimeLine Tool" textFill="WHITE">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-               <font>
-                  <Font name="Ebrima" size="18.0" />
-               </font>
-            </Label>
-            <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="250.0">
+            <ImageView fitHeight="85.0" fitWidth="225.0" layoutX="13.0" layoutY="94.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/Time line Logo.PNG" />
+               </image>
+            </ImageView>
+            <HBox layoutX="-1.0" layoutY="186.0" prefHeight="60.0" prefWidth="250.0">
                <children>
-                  <TextField promptText="Search" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
-                     <font>
-                        <Font name="Calibri Light" size="15.0" />
-                     </font>
-                  </TextField>
-               </children>
-               <opaqueInsets>
-                  <Insets left="10.0" />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="BASELINE_LEFT" layoutX="10.0" layoutY="88.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="55.0" prefWidth="250.0" styleClass="btns">
-               <opaqueInsets>
-                  <Insets left="10.0" />
-               </opaqueInsets>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-               <children>
-                  <Button fx:id="btnProjects" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="56.0" prefWidth="250.0" styleClass="btns" stylesheets="@Stylesheet.css" text="Projects" textFill="#7c8184">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="55.0" prefWidth="250.0" styleClass="btns">
-               <opaqueInsets>
-                  <Insets left="10.0" />
-               </opaqueInsets>
-               <children>
-                  <Button fx:id="btnUsers" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="56.0" prefWidth="251.0" styleClass="btns" stylesheets="@Stylesheet.css" text="Users" textFill="#7c8184">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="55.0" prefWidth="250.0" styleClass="btns">
-               <opaqueInsets>
-                  <Insets left="10.0" />
-               </opaqueInsets>
-            </HBox>
-            <VBox prefHeight="335.0" prefWidth="250.0" styleClass="box" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
-               <children>
-                  <Label text="TEAM INVOLVED" textFill="#7c8184">
+                  <Button fx:id="btnProjects" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="251.0" styleClass="btns" stylesheets="@Stylesheet.css" text="Projects" textFill="WHITE">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
-                     <padding>
-                        <Insets left="10.0" top="10.0" />
-                     </padding>
+                     <graphic>
+                        <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/icons8-list-64 (1).png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <HBox layoutY="246.0" prefHeight="60.0" prefWidth="259.0">
+               <children>
+                  <Button fx:id="btnUsers" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="60.0" prefWidth="258.0" styleClass="btns" stylesheets="@Stylesheet.css" text="Users" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Images/icons8-users-30.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <VBox layoutY="415.0" prefHeight="266.0" prefWidth="259.0" AnchorPane.bottomAnchor="129.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="415.0">
+               <children>
+                  <Label text="TEAM INVOLVED" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
                   </Label>
-                  <HBox prefHeight="248.0" prefWidth="250.0">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                     <children>
-                        <TreeTableView prefHeight="248.0" prefWidth="251.0" styleClass="sidebar" stylesheets="@Stylesheet.css">
-                          <columns>
-                            <TreeTableColumn prefWidth="75.0" />
-                            <TreeTableColumn prefWidth="79.0" style="fx-backgorund-color:#7c8184;" text="C2" />
-                          </columns>
-                        </TreeTableView>
-                     </children>
-                  </HBox>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Add user" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="30.0" top="40.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="187.0" style="-fx-background-color: #00A2D3;" text="Log Out" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="30.0" top="40.0" />
-                     </VBox.margin>
-                  </Button>
+                  <TableView fx:id="tblViewBarUsers" opacity="0.51" prefHeight="250.0" prefWidth="259.0" styleClass="sidebar" stylesheets="@Stylesheet.css">
+                    <columns>
+                      <TableColumn prefWidth="125.0" text="User" />
+                    </columns>
+                  </TableView>
                </children>
             </VBox>
+            <Button fx:id="btnLogOut" layoutX="20.0" layoutY="721.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="98.0" style="-fx-background-color: Grey;" text="Log Out" textFill="WHITE" AnchorPane.rightAnchor="141.0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font></Button>
+            <Button fx:id="btnAddUser" layoutX="140.0" layoutY="721.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="52.0" prefWidth="98.0" style="-fx-background-color: Grey;" text="Add User" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font></Button>
          </children>
-      </VBox>
-      <VBox fx:id="Vbox" layoutX="250.0" prefHeight="810.0" prefWidth="807.0" styleClass="parent" stylesheets="@Stylesheet.css">
+      </AnchorPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="810.0" prefWidth="798.0" style="-fx-background-color: #b1b1b1;" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="71.0" prefWidth="807.0" stylesheets="@Stylesheet.css">
+            <Pane layoutY="67.0" prefHeight="743.0" prefWidth="798.0" style="-fx-background-color: #b1b1b1;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="67.0">
                <children>
-                  <Label fx:id="lblWindow" layoutX="23.0" layoutY="21.0" text="Dashboard" textFill="#7c8184">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <HBox prefHeight="740.0" prefWidth="807.0">
-               <children>
-                  <Pane fx:id="paneProjects" prefHeight="669.0" prefWidth="807.0">
+                  <Pane fx:id="paneUsers" prefHeight="746.0" prefWidth="801.0" style="-fx-background-color: #b1b1b1;">
                      <children>
-                        <TableView fx:id="tblViewSingleUser" layoutX="68.0" layoutY="108.0" prefHeight="457.0" prefWidth="277.0">
-                          <columns>
-                            <TableColumn fx:id="col_singleUserName" prefWidth="130.0" text="Name" />
-                            <TableColumn fx:id="col_singleUserDateModified" prefWidth="146.0" text="Date modified" />
-                          </columns>
-                        </TableView>
-                        <TableView layoutX="444.0" layoutY="108.0" prefHeight="457.0" prefWidth="277.0">
+                        <Label layoutX="375.0" layoutY="105.0" text="Users">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tblViewUSers" layoutX="204.0" layoutY="177.0" prefHeight="341.0" prefWidth="394.0" style="-fx-background-color: #b1b1b1;">
                            <columns>
-                              <TableColumn prefWidth="75.0" text="C1" />
-                              <TableColumn prefWidth="75.0" text="C2" />
+                              <TableColumn prefWidth="143.0" text="Name" />
+                              <TableColumn prefWidth="141.0" text="C2" />
                            </columns>
                         </TableView>
-                        <Label layoutX="169.0" layoutY="60.0" text="Single User">
+                     </children>
+                  </Pane>
+                  <Pane fx:id="paneProjects" prefHeight="746.0" prefWidth="801.0" style="-fx-background-color: #b1b1b1;">
+                     <children>
+                        <Label layoutX="527.0" layoutY="115.0" text="Multi User">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Label layoutX="548.0" layoutY="60.0" text="Multi User">
+                        <Label layoutX="164.0" layoutY="115.0" text="Single User">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnNewStory" layoutX="132.0" layoutY="629.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="61.0" prefWidth="149.0" style="-fx-background-color: #00A2D3;" text="New Story" textFill="WHITE">
+                        <Button fx:id="btnDeleteStory" layoutX="498.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="Delete Story">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Arial Rounded MT Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnDeleteStory" layoutX="508.0" layoutY="629.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="61.0" prefWidth="149.0" style="-fx-background-color: #00A2D3;" text="Delete Story" textFill="WHITE">
+                        <TableView fx:id="tblViewMultiUser" layoutX="451.0" layoutY="173.0" opacity="0.73" prefHeight="339.0" prefWidth="241.0" style="-fx-background-color: #b1b1b1;">
+                           <columns>
+                              <TableColumn prefWidth="121.0" text="Name" />
+                              <TableColumn prefWidth="119.0" text="Date modified" />
+                           </columns>
+                        </TableView>
+                        <TableView fx:id="tblViewSingleUser" layoutX="94.0" layoutY="173.0" opacity="0.73" prefHeight="339.0" prefWidth="241.0" style="-fx-background-color: #b1b1b1;">
+                          <columns>
+                            <TableColumn fx:id="col_singleUserName" prefWidth="118.0" text="Name" />
+                            <TableColumn fx:id="col_singleUserDateModified" prefWidth="122.0" text="Date modified" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="btnSelectStory" layoutX="350.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="Select Story">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="Arial Rounded MT Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnNewStory" layoutX="202.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="New Story">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="12.0" />
                            </font>
                         </Button>
                      </children>
                   </Pane>
                </children>
+            </Pane>
+            <HBox prefHeight="65.0" prefWidth="798.0">
+               <children>
+                  <Label fx:id="lblWindow" prefHeight="30.0" prefWidth="129.0">
+                     <HBox.margin>
+                        <Insets left="30.0" top="20.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
             </HBox>
-         </children></VBox>
-   </children>
-</AnchorPane>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>
