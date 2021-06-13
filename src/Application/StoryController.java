@@ -2,85 +2,79 @@ package Application;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
-
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javafx.stage.Stage;
 import java.util.ArrayList;
+import static Application.LoginController.loadStage;
 
 public class StoryController {
     private MenuItem item1, item2, item3;
     static ArrayList<postIt> PostIts = new ArrayList<postIt>();
-    Path path = Paths.get("src/SavedFiles");
-
-
 
     @FXML
     private AnchorPane ap;
 
     @FXML
+    private Button btnStoryBack;
+
+    @FXML
     private Label lblStory;
+
+    @FXML
+    private Button btnStoryAddPostit;
+
+    @FXML
+    private Button btnStorySave;
 
 
     public void initialize() {
-        storyManagement();
+        //loadFromTextFile();
     }
-
-    private void storyManagement() {
-        TextFileDAO textFileDAO = new TextFileDAOImpl();
-        if (textFileDAO.textFileCheck()) {
-            loadFromTextFile();
-            System.out.println("loading existing file");
-        }
-
-
-    }
-
 
     @FXML
-    void addPostIt(ActionEvent event) {
-        DrawPostIt();
+    void handleButtonAction(ActionEvent event) {
+        if (event.getSource()== btnStoryAddPostit){
+            drawPostIt();
+        }
+        if (event.getSource()== btnStorySave){
+            TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
+            postItTextDAO.saveTextFile();
+            System.out.println("saving");
+        }
+        if (event.getSource()== btnStoryBack){
+            loadStage("/View/TimeLineToolUI.fxml");
+
+            Node n = (Node) event.getSource();
+            Stage previousStage = (Stage) n.getScene().getWindow();
+            previousStage.close();
+        }
+
     }
 
-    public void DrawPostIt() {
-        //creating PostIt shape
-        Rectangle rect = new Rectangle();
-        rect.setFill(Color.WHITE);
-        rect.setStroke(Color.GRAY);
-        double rectX = 30;
-        double rectY = 30;
 
-        Label labelText = new Label("Ny note");
-        labelText.setLayoutX(rectX+1);
-        labelText.setLayoutY(rectY+1);
+    public void drawPostIt() {
 
-        //creating PostIt Object
-        postIt p = new postIt(rectX,rectY,rect,labelText);
+        DrawPostIt drawPostIt = new DrawPostItImpl();
+
+        postIt p = drawPostIt.Draw();
+
         //adding it to Arraylist
         PostIts.add(p);
-        ap.getChildren().addAll(rect,labelText);
+        ap.getChildren().addAll(p.getR(),p.getText());
+
         //drawing rectangle(PostIt)
         p.draw();
 
-
-
         //drag event for every postIt
-        rect.setOnMouseDragged(event -> dragPostIt(event, p));
+        p.getR().setOnMouseDragged(event -> dragPostIt(event, p));
 
         //Context menu set on Mouseclick(right)
-        rect.setOnMouseClicked(event -> postItOptions(event, p));
+        p.getR().setOnMouseClicked(event -> postItOptions(event, p));
     }
 
     public void dragPostIt(MouseEvent event, postIt p) {
@@ -165,9 +159,6 @@ public class StoryController {
         removeAllPostIts();
         PostIts.clear();
 
-
-        System.out.println(path + "/" + DashboardController.selectedProject.getName());
-
         //uses TextfileDAO interface to gather all postIts objects made in the textfile.
         TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
         PostIts = postItTextDAO.loadTextFile();
@@ -187,8 +178,6 @@ public class StoryController {
 
     }
 
-
-
     private void removeAllPostIts() {
         for (Application.postIt postIt : PostIts) {
             ap.getChildren().removeAll(postIt.getR(), postIt.getText());
@@ -196,11 +185,9 @@ public class StoryController {
         }
     }
 
-    @FXML
-    void saveProject(ActionEvent event){
-        TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
-        postItTextDAO.saveTextFile();
-        System.out.println("saving");
+
+    private void saveMultiUserStory() {
+
     }
 
 }

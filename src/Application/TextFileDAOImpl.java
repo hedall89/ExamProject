@@ -22,7 +22,7 @@ public class TextFileDAOImpl implements TextFileDAO {
 
         File folder = new File(String.valueOf(path));
         File[] files = folder.listFiles();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         //Enchanted forLoop that gather fileName and fileLastModified from folder
         for (File file : files) {
@@ -38,14 +38,6 @@ public class TextFileDAOImpl implements TextFileDAO {
     }
 
     @Override
-    public boolean textFileCheck() {
-
-        File savedFile = new File(path + "/" + DashboardController.selectedProject.getName());
-        return savedFile.exists();
-
-    }
-
-    @Override
     public void deleteTextFile() {
 
         File selectedFile = new File(path + "/" + DashboardController.selectedProject.getName());
@@ -53,7 +45,7 @@ public class TextFileDAOImpl implements TextFileDAO {
         if (selectedFile.delete()){
             System.out.println("file Deleted");
         } else {
-            System.out.println("failed to delete the file");
+            System.out.println("failed to delete a singleUserStory");
         }
 
     }

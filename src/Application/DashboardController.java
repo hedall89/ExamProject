@@ -24,6 +24,7 @@ import java.net.URL;
 
 import static Application.LoginController.loadStage;
 
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class DashboardController {
@@ -54,7 +55,17 @@ public class DashboardController {
     @FXML
     private TableColumn<savedFile, String> col_singleUserDateModified;
 
+    @FXML
+    private TableView<savedFile> tblViewMultiUser;
+
+    @FXML
+    private TableColumn<savedFile, String> col_multiUserName;
+
+    @FXML
+    private TableColumn<savedFile, String> col_multiUserDateModified;
+
     ObservableList<savedFile> savedTextFiles = FXCollections.observableArrayList();
+    ObservableList<savedFile> multiUserStories = FXCollections.observableArrayList();
 
     public static savedFile selectedProject;
 
@@ -78,13 +89,6 @@ public class DashboardController {
 
 
 
-        if (event.getSource()== btnStoryBack){
-            loadStage("/View/TimeLineToolUI.fxml");
-
-            Node n = (Node) event.getSource();
-            Stage previousStage = (Stage) n.getScene().getWindow();
-            previousStage.close();
-        }
 
         if (event.getSource() == btnLogOut){
             loadStage("/View/Login.fxml");
@@ -122,32 +126,42 @@ public class DashboardController {
 
     private void deleteStory() {
         TextFileDAO textFileDAO = new TextFileDAOImpl();
-
-        System.out.println(selectedProject);
-
-        //deleting selected file
+        //deleting selected singleUserStoryTextFile
         textFileDAO.deleteTextFile();
 
-        //updating table
+        //updating singeUserTable
         updateSingleUserTable();
 
+
+        //deleting selected multiUserStory
+        MultiUserStory multiUserStory = new MultiUserStoryImpl();
+        multiUserStory.deleteMultiUserStory();
+
+        //updating MultiuserTable
+        updateMultiUserTable();
     }
 
     public void initialize(){
-        updateSingleUserTable();
-        loadStory();
-        selectedProjectInTable();
+        //updateMultiUserTable();
+        //updateSingleUserTable();
+        //loadStory();
+        //selectedProjectInTable();
      }
 
     public void selectedProjectInTable() {
         tblViewSingleUser.setOnMouseClicked(click -> {
             selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
-            System.out.println(selectedProject);
-
+            System.out.println("singleUserStory Selected:" + selectedProject.getName());
         });
+
+        tblViewMultiUser.setOnMouseClicked(click -> {
+            selectedProject=tblViewMultiUser.getSelectionModel().getSelectedItem();
+            System.out.println("multiUserProject Selected:" + selectedProject.getName());
+        });
+
     }
 
-    private void updateSingleUserTable() {
+    public void updateSingleUserTable() {
         savedTextFiles.clear();
 
         TextFileDAO textFileDAO = new TextFileDAOImpl();
@@ -164,6 +178,26 @@ public class DashboardController {
 
 
     }
+
+    public void updateMultiUserTable() {
+
+        //Fetches storyNames and dateModified from database
+        MultiUserStory multiUserStory = new MultiUserStoryImpl();
+
+        multiUserStories = multiUserStory.usersMultiUserStories();
+
+
+        //sets textFileName and dateModified in the correct column
+        col_multiUserName.setCellValueFactory(new PropertyValueFactory<savedFile, String>("name"));
+        col_multiUserDateModified.setCellValueFactory(new PropertyValueFactory<savedFile, String>("dateModified"));
+
+        tblViewMultiUser.setItems(multiUserStories);
+
+
+
+    }
+
+
 
     public void loadStory() {
         tblViewSingleUser.setOnMouseClicked(click -> {
@@ -189,10 +223,14 @@ public class DashboardController {
     @FXML
     void storySelectorOnAction(ActionEvent event) {
         if (rdbSingleUser.isSelected()){
-            selectedProject = new savedFile(txtStoryName.getText(),null);
+            selectedProject = new savedFile(txtStoryName.getText(),String.valueOf(LocalDate.now()));
         }
         if (rdbMultiUser.isSelected()){
+            selectedProject = new savedFile(txtStoryName.getText(), String.valueOf(LocalDate.now()));
 
+            //insert new story into Database
+            MultiUserStory multiUserStory = new MultiUserStoryImpl();
+            multiUserStory.newMultiUserStory();
         }
 
     }

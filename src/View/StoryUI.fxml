@@ -56,6 +56,6 @@
       </AnchorPane>
    </top>
    <center>
-      <AnchorPane fx:id="Ap" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #b1b1b1;" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="ap" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

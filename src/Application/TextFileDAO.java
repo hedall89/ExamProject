@@ -9,7 +9,5 @@ public interface TextFileDAO {
 
     public ObservableList<savedFile> allFilesInFolder();
 
-    public boolean textFileCheck();
-
     public void deleteTextFile();
 }

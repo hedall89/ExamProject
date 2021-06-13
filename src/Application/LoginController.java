@@ -31,6 +31,8 @@ public class LoginController {
     @FXML
     private Button btnCreateAccount, btnCancelCreateAccount, btnLoginCreateAccount, btnLogin, btnLoginCancel;
 
+    public static String username;
+
 
     @FXML
     void handleButtonAction(ActionEvent event) {
@@ -94,7 +96,7 @@ public class LoginController {
     //Method for logging in to the app
     private String logIn(){
 
-        String username = txtLoginUserName.getText().toLowerCase().toString();
+        username = txtLoginUserName.getText().toLowerCase().toString();
         String password = txtLoginPassword.getText().toString();
         //query
         String sql = "Select * from tblUser where fldUsername = ? and fldPassword = ?";

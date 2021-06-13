@@ -61,6 +61,9 @@
                      <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
                   </Label>
                   <TableView fx:id="tblViewBarUsers" opacity="0.51" prefHeight="250.0" prefWidth="259.0" styleClass="sidebar" stylesheets="@Stylesheet.css">
                     <columns>
@@ -102,6 +105,19 @@
                   </Pane>
                   <Pane fx:id="paneProjects" prefHeight="746.0" prefWidth="801.0" style="-fx-background-color: #b1b1b1;">
                      <children>
+                        <TableView fx:id="tblViewSingleUser" layoutX="68.0" layoutY="108.0" prefHeight="457.0" prefWidth="277.0">
+                          <columns>
+                            <TableColumn fx:id="col_singleUserName" prefWidth="130.0" text="Name" />
+                            <TableColumn fx:id="col_singleUserDateModified" prefWidth="146.0" text="Date modified" />
+                          </columns>
+                        </TableView>
+                        <TableView fx:id="tblViewMultiUser" layoutX="444.0" layoutY="108.0" prefHeight="457.0" prefWidth="277.0">
+                           <columns>
+                              <TableColumn fx:id="col_multiUserName" prefWidth="139.0" text="Name" />
+                              <TableColumn fx:id="col_multiUserDateModified" prefWidth="137.0" text="Date modified" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="169.0" layoutY="60.0" text="Single User">
                         <Label layoutX="527.0" layoutY="115.0" text="Multi User">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="18.0" />
