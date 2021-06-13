@@ -10,4 +10,6 @@ public interface TextFileDAO {
     public ObservableList<savedFile> allFilesInFolder();
 
     public void deleteTextFile();
+
+    public void newTextFile();
 }

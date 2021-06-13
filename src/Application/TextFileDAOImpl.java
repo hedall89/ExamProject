@@ -50,4 +50,18 @@ public class TextFileDAOImpl implements TextFileDAO {
 
     }
 
+    @Override
+    public void newTextFile() {
+        try {
+            File newTextFile = new File(path + "/" + DashboardController.selectedProject.getName() + ".txt");
+            newTextFile.createNewFile();
+            System.out.println("file created");
+
+        } catch (IOException e) {
+            System.out.println("can't create a new TextFile");
+        }
+
+
+    }
+
 }

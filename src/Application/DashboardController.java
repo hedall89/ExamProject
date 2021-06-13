@@ -31,7 +31,7 @@ public class DashboardController {
 
     @FXML
     private Button btnProjects, btnLogOut, btnAddUser, btnExportProject, btnNewStory, btnDeleteStory, btnCreateStory,
-            btnStoryBack, btnStoryAddPostit, btnStorySave, btnUsers;
+            btnStoryBack, btnStoryAddPostit, btnStorySave, btnUsers, btnSelectStory;
 
     @FXML
     private TextField txtStoryName;
@@ -42,9 +42,6 @@ public class DashboardController {
 
     @FXML
     private Pane paneUsers, paneProjects;
-
-    @FXML
-    private AnchorPane Ap;
 
     @FXML
     private TableView<savedFile> tblViewSingleUser;
@@ -87,9 +84,6 @@ public class DashboardController {
             lblWindow.setText("Users");
         }
 
-
-
-
         if (event.getSource() == btnLogOut){
             loadStage("/View/Login.fxml");
             Node n = (Node) event.getSource();
@@ -104,59 +98,70 @@ public class DashboardController {
             previousStage.close();
 
             loadStage("/View/newStory.fxml");
-
-
-
     }
 
-        if (event.getSource() == btnCreateStory){
-            //Opens storyUI
-            loadStage("/View/StoryUI.fxml");
+        if(event.getSource() == btnDeleteStory){
+            deleteStory();
+        }
 
-            //closing newStory
+        if (event.getSource() == btnSelectStory){
+            //close TimeLineToolUI
             Node n = (Node) event.getSource();
             Stage previousStage = (Stage) n.getScene().getWindow();
             previousStage.close();
 
+            //open StoryUI Window
+            loadStage("/View/StoryUI.fxml");
         }
-        if(event.getSource() == btnDeleteStory){
-            deleteStory();
-        }
+
         }
 
     private void deleteStory() {
-        TextFileDAO textFileDAO = new TextFileDAOImpl();
-        //deleting selected singleUserStoryTextFile
-        textFileDAO.deleteTextFile();
 
-        //updating singeUserTable
-        updateSingleUserTable();
+        if (StoryController.storyManager == 1){
+            TextFileDAO textFileDAO = new TextFileDAOImpl();
+            //deleting selected singleUserStoryTextFile
+            textFileDAO.deleteTextFile();
+
+            //updating singeUserTable
+            updateSingleUserTable();
+        } if (StoryController.storyManager == 3) {
+            //deleting selected multiUserStory
+            MultiUserStory multiUserStory = new MultiUserStoryImpl();
+            multiUserStory.deleteMultiUserStory();
+
+            //updating MultiuserTable
+            updateMultiUserTable();
+        }
 
 
-        //deleting selected multiUserStory
-        MultiUserStory multiUserStory = new MultiUserStoryImpl();
-        multiUserStory.deleteMultiUserStory();
 
-        //updating MultiuserTable
-        updateMultiUserTable();
+
+
+
     }
 
     public void initialize(){
-        //updateMultiUserTable();
-        //updateSingleUserTable();
-        //loadStory();
-        //selectedProjectInTable();
+        updateMultiUserTable();
+        updateSingleUserTable();
+        selectedProjectInTable();
      }
 
     public void selectedProjectInTable() {
         tblViewSingleUser.setOnMouseClicked(click -> {
             selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
             System.out.println("singleUserStory Selected:" + selectedProject.getName());
+
+            //sets counter for story
+            StoryController.storyManager = 1;
         });
 
         tblViewMultiUser.setOnMouseClicked(click -> {
             selectedProject=tblViewMultiUser.getSelectionModel().getSelectedItem();
             System.out.println("multiUserProject Selected:" + selectedProject.getName());
+
+            //sets counter for story
+            StoryController.storyManager = 3;
         });
 
     }
@@ -197,47 +202,4 @@ public class DashboardController {
 
     }
 
-
-
-    public void loadStory() {
-        tblViewSingleUser.setOnMouseClicked(click -> {
-            if (click.getClickCount() == 2) {
-                selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
-                System.out.println(selectedProject.getName());
-
-                //open StoryUI Window
-                loadStage("/View/StoryUI.fxml");
-
-                //close TimeLineToolUI
-                Node n = (Node) click.getSource();
-                Stage previousStage = (Stage) n.getScene().getWindow();
-                previousStage.close();
-
-            }
-        });
-
-    }
-
-
-
-    @FXML
-    void storySelectorOnAction(ActionEvent event) {
-        if (rdbSingleUser.isSelected()){
-            selectedProject = new savedFile(txtStoryName.getText(),String.valueOf(LocalDate.now()));
-        }
-        if (rdbMultiUser.isSelected()){
-            selectedProject = new savedFile(txtStoryName.getText(), String.valueOf(LocalDate.now()));
-
-            //insert new story into Database
-            MultiUserStory multiUserStory = new MultiUserStoryImpl();
-            multiUserStory.newMultiUserStory();
-        }
-
-    }
-
-
-    public savedFile selected() {
-
-        return selectedProject;
-    }
 }

@@ -3,6 +3,7 @@ package Application;
 import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface MultiUserStory {
 
@@ -14,5 +15,5 @@ public interface MultiUserStory {
 
     public void saveMultiUserStory();
 
-    public void loadMultiUserStory();
+    public ArrayList<postIt> loadMultiUserStory();
 }

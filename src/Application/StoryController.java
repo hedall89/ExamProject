@@ -31,9 +31,10 @@ public class StoryController {
     @FXML
     private Button btnStorySave;
 
+    public static int storyManager;
 
     public void initialize() {
-        //loadFromTextFile();
+        storyManagement();
     }
 
     @FXML
@@ -42,9 +43,19 @@ public class StoryController {
             drawPostIt();
         }
         if (event.getSource()== btnStorySave){
-            TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
-            postItTextDAO.saveTextFile();
-            System.out.println("saving");
+            //1 = existing singleUserStory, 2 new singleUserStory
+            if (storyManager == 1 || storyManager == 2){
+                TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
+                postItTextDAO.saveTextFile();
+
+                //3 = existing multiUserStory, 4 = new multiUserStory
+            } if (storyManager == 3 || storyManager == 4){
+                MultiUserStory multiUserStory = new MultiUserStoryImpl();
+                multiUserStory.saveMultiUserStory();
+            } else {
+                System.out.println("Error saving..");
+            }
+
         }
         if (event.getSource()== btnStoryBack){
             loadStage("/View/TimeLineToolUI.fxml");
@@ -155,11 +166,10 @@ public class StoryController {
     }
 
     private void loadFromTextFile() {
-        //Removing not saved PostIt, before adding saved PostIts
+        //Clearing the PostIt array, before adding saved PostIts
         removeAllPostIts();
-        PostIts.clear();
 
-        //uses TextfileDAO interface to gather all postIts objects made in the textfile.
+        //uses TextFromFileDAO interface to gather all postIts objects made in the textfile.
         TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
         PostIts = postItTextDAO.loadTextFile();
 
@@ -186,7 +196,45 @@ public class StoryController {
     }
 
 
-    private void saveMultiUserStory() {
+    private void storyManagement() {
+
+        //switch to manage which Story the user opens
+        switch (storyManager){
+            case 1:
+                loadFromTextFile();
+                break;
+            case 3:
+                loadMultiUserStory();
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void loadMultiUserStory() {
+        removeAllPostIts();
+
+        MultiUserStory multiUserStory = new MultiUserStoryImpl();
+        PostIts = multiUserStory.loadMultiUserStory();
+
+        System.out.println(PostIts.size());
+
+
+
+        for (Application.postIt postIt : PostIts) {
+            System.out.println(postIt.getR() + postIt.toString());
+
+            //Drawing all PostIts
+            ap.getChildren().addAll(postIt.getR(), postIt.getText());
+            postIt.draw();
+
+            //dragable PostIts
+            postIt.getR().setOnMouseDragged(event -> dragPostIt(event, postIt));
+
+            //Context menu set on Mouseclick(right)
+            postIt.getR().setOnMouseClicked(event -> postItOptions(event, postIt));
+        }
 
     }
 
