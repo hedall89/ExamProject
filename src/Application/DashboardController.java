@@ -4,7 +4,6 @@ package Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -20,9 +19,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+
+import java.net.URL;
+
 import static Application.LoginController.loadStage;
 
-import java.io.IOException;
 import java.util.ResourceBundle;
 
 public class DashboardController {
@@ -58,6 +59,12 @@ public class DashboardController {
     public static savedFile selectedProject;
 
     @FXML
+    private URL location;
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
     void handleButtonAction(ActionEvent event) {
 
         if (event.getSource()== btnProjects){
@@ -68,6 +75,7 @@ public class DashboardController {
             paneUsers.toFront();
             lblWindow.setText("Users");
         }
+
 
 
         if (event.getSource()== btnStoryBack){
@@ -108,7 +116,6 @@ public class DashboardController {
 
         }
         if(event.getSource() == btnDeleteStory){
-
             deleteStory();
         }
         }
@@ -128,16 +135,15 @@ public class DashboardController {
 
     public void initialize(){
         updateSingleUserTable();
-       loadStory();
-       selectedProjectInTable();
+        loadStory();
+        selectedProjectInTable();
      }
 
-    private void selectedProjectInTable() {
-        tblViewSingleUser.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
-            }
+    public void selectedProjectInTable() {
+        tblViewSingleUser.setOnMouseClicked(click -> {
+            selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
+            System.out.println(selectedProject);
+
         });
     }
 
@@ -192,4 +198,8 @@ public class DashboardController {
     }
 
 
+    public savedFile selected() {
+
+        return selectedProject;
+    }
 }

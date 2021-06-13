@@ -1,5 +1,6 @@
 package Application;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -17,8 +18,10 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
     public ArrayList<postIt> loadTextFile() {
         int lineMax = 0;
 
+
+
         try {
-            LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(path + DashboardController.selectedProject.getName()));
+            LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(path + "/" + DashboardController.selectedProject.getName()));
             lineNumberReader.skip(Long.MAX_VALUE);
             lineMax = lineNumberReader.getLineNumber();
 
@@ -28,7 +31,7 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
 
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(path + DashboardController.selectedProject.getName()));
+            BufferedReader reader = new BufferedReader(new FileReader(path + "/" + DashboardController.selectedProject.getName()));
 
 
             for (int i = 0; i < lineMax / 3; i++) {
@@ -62,10 +65,9 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
 
     @Override
     public void saveTextFile() {
-
         try {
 
-            File savedFile = new File(path + DashboardController.selectedProject.getName() + ".txt");
+            File savedFile = new File(path + "/" + DashboardController.selectedProject.getName() + ".txt");
             if (!savedFile.exists()) {
                 savedFile.createNewFile();
                 System.out.println("creating new file");

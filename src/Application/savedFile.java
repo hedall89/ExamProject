@@ -24,4 +24,9 @@ public class savedFile {
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
     }
+
+    public void selectedSavedFile(){
+
+    }
+
 }

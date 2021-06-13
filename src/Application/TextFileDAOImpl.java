@@ -2,6 +2,7 @@ package Application;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,14 +40,15 @@ public class TextFileDAOImpl implements TextFileDAO {
     @Override
     public boolean textFileCheck() {
 
-        File savedFile = new File(path + DashboardController.selectedProject.getName());
+        File savedFile = new File(path + "/" + DashboardController.selectedProject.getName());
         return savedFile.exists();
 
     }
 
     @Override
     public void deleteTextFile() {
-        File selectedFile = new File(path + DashboardController.selectedProject.getName());
+
+        File selectedFile = new File(path + "/" + DashboardController.selectedProject.getName());
 
         if (selectedFile.delete()){
             System.out.println("file Deleted");
