@@ -11,5 +11,4 @@ public interface TextFileDAO {
 
     public void deleteTextFile();
 
-    public void newTextFile();
 }

@@ -10,6 +10,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 import static Application.LoginController.loadStage;
 
 public class StoryController {
@@ -52,12 +56,15 @@ public class StoryController {
             } if (storyManager == 3 || storyManager == 4){
                 MultiUserStory multiUserStory = new MultiUserStoryImpl();
                 multiUserStory.saveMultiUserStory();
-            } else {
-                System.out.println("Error saving..");
             }
 
         }
         if (event.getSource()== btnStoryBack){
+
+            //export singleUserStories
+            //TextFromFileDAO textFromFileDAO = new TextFromFileDAOImpl();
+            //textFromFileDAO.exportSingleUserStory();
+
             loadStage("/View/TimeLineToolUI.fxml");
 
             Node n = (Node) event.getSource();
@@ -218,12 +225,11 @@ public class StoryController {
         MultiUserStory multiUserStory = new MultiUserStoryImpl();
         PostIts = multiUserStory.loadMultiUserStory();
 
-        System.out.println(PostIts.size());
+        System.out.println("PostIt Array size : " + PostIts.size());
 
 
 
         for (Application.postIt postIt : PostIts) {
-            System.out.println(postIt.getR() + postIt.toString());
 
             //Drawing all PostIts
             ap.getChildren().addAll(postIt.getR(), postIt.getText());

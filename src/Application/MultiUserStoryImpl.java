@@ -256,4 +256,11 @@ public class MultiUserStoryImpl implements MultiUserStory {
 
 
     }
+
+    @Override
+    public void exportMultiUserStory() {
+        loadMultiUserStory();
+
+
+    }
 }

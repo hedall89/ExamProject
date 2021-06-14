@@ -9,4 +9,6 @@ public interface TextFromFileDAO {
     public ArrayList<postIt> loadTextFile();
 
     public void saveTextFile();
+
+    public void exportSingleUserStory();
 }
