@@ -7,9 +7,16 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
 import javax.sound.midi.SysexMessage;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MultiUserStoryImpl implements MultiUserStory {
     ObservableList<savedFile> multiUserStories = FXCollections.observableArrayList();
@@ -17,6 +24,7 @@ public class MultiUserStoryImpl implements MultiUserStory {
     CallableStatement myStmt = null;
     private int userID = 0;
     private int storyID = 0;
+    Path pathExportStories = Paths.get("src/Exported Stories");
 
 
     @Override
@@ -261,6 +269,31 @@ public class MultiUserStoryImpl implements MultiUserStory {
     public void exportMultiUserStory() {
         loadMultiUserStory();
 
+        //sorting the multiUserPostIts, starting with the lowest x of PostIt
+        Collections.sort(StoryController.PostIts);
+
+        System.out.println(StoryController.PostIts.toString());
+
+            try {
+
+                File savedFile = new File(pathExportStories + "/" + DashboardController.selectedProject.getName());
+
+                BufferedWriter wr = new BufferedWriter(new FileWriter(savedFile));
+
+                System.out.println(StoryController.PostIts.size());
+
+                //writes only the text of PostIts
+                for (Application.postIt postIt : StoryController.PostIts) {
+                    wr.write("" + postIt.toString());
+                    wr.newLine();
+
+                }
+                wr.close();
+                System.out.println("MultiUserStory Exported");
+
+            } catch (IOException e) {
+                System.out.println("Error");
+            }
 
     }
 }

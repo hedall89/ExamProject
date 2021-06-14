@@ -61,10 +61,6 @@ public class StoryController {
         }
         if (event.getSource()== btnStoryBack){
 
-            //export singleUserStories
-            //TextFromFileDAO textFromFileDAO = new TextFromFileDAOImpl();
-            //textFromFileDAO.exportSingleUserStory();
-
             loadStage("/View/TimeLineToolUI.fxml");
 
             Node n = (Node) event.getSource();

@@ -30,7 +30,7 @@ import java.util.ResourceBundle;
 public class DashboardController {
 
     @FXML
-    private Button btnProjects, btnLogOut, btnAddUser, btnExportProject, btnNewStory, btnDeleteStory, btnCreateStory,
+    private Button btnProjects, btnLogOut, btnAddUser, btnExportStory, btnNewStory, btnDeleteStory, btnCreateStory,
             btnStoryBack, btnStoryAddPostit, btnStorySave, btnUsers, btnSelectStory;
 
     @FXML
@@ -112,6 +112,19 @@ public class DashboardController {
 
             //open StoryUI Window
             loadStage("/View/StoryUI.fxml");
+        }
+        if (event.getSource() == btnExportStory){
+            //export singleUserStory
+            if (StoryController.storyManager == 1){
+                TextFromFileDAO textFromFileDAO = new TextFromFileDAOImpl();
+                textFromFileDAO.exportSingleUserStory();
+            } //export multiUserStory
+            if (StoryController.storyManager == 3){
+                MultiUserStory multiUserStory = new MultiUserStoryImpl();
+                multiUserStory.exportMultiUserStory();
+                System.out.println("multi");
+            }
+
         }
 
         }

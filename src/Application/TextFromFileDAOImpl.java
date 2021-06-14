@@ -107,9 +107,6 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
         Collections.sort(StoryController.PostIts);
 
         System.out.println(StoryController.PostIts.toString());
-
-        //1 = existing singleUserStory, 2 new singleUserStory
-        if (StoryController.storyManager == 1 || StoryController.storyManager == 2) {
             try {
 
                 File savedFile = new File(pathExportStories + "/" + DashboardController.selectedProject.getName());
@@ -130,7 +127,6 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
             } catch (IOException e) {
                 System.out.println("Error");
             }
-        }
     }
 }
 
