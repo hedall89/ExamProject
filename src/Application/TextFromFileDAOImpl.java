@@ -16,6 +16,8 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
 
     @Override
     public ArrayList<postIt> loadTextFile() {
+        StoryController.PostIts.clear();
+
         int lineMax = 0;
 
 
@@ -50,6 +52,8 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
                 rect.setStroke(Color.GRAY);
 
                 postIt p = new postIt(rectX, rectY, rect, labelText);
+
+
                 //adding it to Arraylist
                 StoryController.PostIts.add(p);
 
@@ -67,10 +71,9 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
     public void saveTextFile() {
         try {
 
-            File savedFile = new File(path + "/" + DashboardController.selectedProject.getName() + ".txt");
+            File savedFile = new File(path + "/" + DashboardController.selectedProject.getName());
             if (!savedFile.exists()) {
-                savedFile.createNewFile();
-                System.out.println("creating new file");
+                System.out.println("can't find the file");
             }
 
 
