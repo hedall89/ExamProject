@@ -3,7 +3,7 @@ package Application;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
 
-public class postIt {
+public class postIt implements Comparable<postIt> {
     private double x,y;
     private Rectangle r;
     private Label text;
@@ -64,5 +64,10 @@ public class postIt {
     @Override
     public String toString() {
         return text.getText();
+    }
+
+    @Override
+    public int compareTo(postIt o) {
+        return (int) (this.x - o.x);
     }
 }

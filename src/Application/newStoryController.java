@@ -62,8 +62,6 @@ public class newStoryController {
     void storySelector() {
         if (rdbSingleUser.isSelected()){
             DashboardController.selectedProject = new savedFile(txtStoryName.getText(),String.valueOf(LocalDate.now()));
-            TextFileDAO textFileDAO = new TextFileDAOImpl();
-            textFileDAO.newTextFile();
             StoryController.storyManager = 2;
 
         }

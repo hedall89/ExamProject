@@ -16,4 +16,6 @@ public interface MultiUserStory {
     public void saveMultiUserStory();
 
     public ArrayList<postIt> loadMultiUserStory();
+
+    public void exportMultiUserStory();
 }
