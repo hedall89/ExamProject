@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 public class DatabaseConnector {
 
-    static Connection con;
+    public static Connection con;
 
     public static java.sql.Connection createConnection() {
         try {

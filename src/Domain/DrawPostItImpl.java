@@ -1,4 +1,4 @@
-package Application;
+package Domain;
 
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;

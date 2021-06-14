@@ -1,6 +1,7 @@
 package Application;
 
 
+import Domain.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,18 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-
-
 import java.net.URL;
-
 import static Application.LoginController.loadStage;
 
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class DashboardController {
@@ -61,7 +55,7 @@ public class DashboardController {
     @FXML
     private TableColumn<savedFile, String> col_multiUserDateModified;
 
-    ObservableList<savedFile> savedTextFiles = FXCollections.observableArrayList();
+    ObservableList<savedFile> singleUserStories = FXCollections.observableArrayList();
     ObservableList<savedFile> multiUserStories = FXCollections.observableArrayList();
 
     public static savedFile selectedProject;
@@ -120,7 +114,7 @@ public class DashboardController {
                 textFromFileDAO.exportSingleUserStory();
             } //export multiUserStory
             if (StoryController.storyManager == 3){
-                MultiUserStory multiUserStory = new MultiUserStoryImpl();
+                MultiUserStoryDAO multiUserStory = new MultiUserStoryDAOImpl();
                 multiUserStory.exportMultiUserStory();
                 System.out.println("multi");
             }
@@ -128,6 +122,12 @@ public class DashboardController {
         }
 
         }
+
+    public void initialize(){
+        updateMultiUserTable();
+        updateSingleUserTable();
+        selectedStoryInTable();
+    }
 
     private void deleteStory() {
 
@@ -140,7 +140,8 @@ public class DashboardController {
             updateSingleUserTable();
         } if (StoryController.storyManager == 3) {
             //deleting selected multiUserStory
-            MultiUserStory multiUserStory = new MultiUserStoryImpl();
+            MultiUserStoryDAO multiUserStory = new MultiUserStoryDAOImpl() {
+            };
             multiUserStory.deleteMultiUserStory();
 
             //updating MultiuserTable
@@ -154,13 +155,7 @@ public class DashboardController {
 
     }
 
-    public void initialize(){
-        updateMultiUserTable();
-        updateSingleUserTable();
-        selectedProjectInTable();
-     }
-
-    public void selectedProjectInTable() {
+    public void selectedStoryInTable() {
         tblViewSingleUser.setOnMouseClicked(click -> {
             selectedProject = tblViewSingleUser.getSelectionModel().getSelectedItem();
             System.out.println("singleUserStory Selected:" + selectedProject.getName());
@@ -180,17 +175,17 @@ public class DashboardController {
     }
 
     public void updateSingleUserTable() {
-        savedTextFiles.clear();
+        singleUserStories.clear();
 
         TextFileDAO textFileDAO = new TextFileDAOImpl();
-        savedTextFiles = textFileDAO.allFilesInFolder();
+        singleUserStories = textFileDAO.allFilesInFolder();
 
         //sets textFileName and dateModified in the correct column
         col_singleUserName.setCellValueFactory(new PropertyValueFactory<savedFile, String>("name"));
         col_singleUserDateModified.setCellValueFactory(new PropertyValueFactory<savedFile, String>("dateModified"));
 
         //loads the textfile names and Date modified from array
-        tblViewSingleUser.setItems(savedTextFiles);
+        tblViewSingleUser.setItems(singleUserStories);
 
 
 
@@ -200,7 +195,7 @@ public class DashboardController {
     public void updateMultiUserTable() {
 
         //Fetches storyNames and dateModified from database
-        MultiUserStory multiUserStory = new MultiUserStoryImpl();
+        MultiUserStoryDAO multiUserStory = new MultiUserStoryDAOImpl();
 
         multiUserStories = multiUserStory.usersMultiUserStories();
 

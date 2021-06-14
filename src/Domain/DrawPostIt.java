@@ -1,4 +1,6 @@
-package Application;
+package Domain;
+
+import Domain.postIt;
 
 public interface DrawPostIt {
 

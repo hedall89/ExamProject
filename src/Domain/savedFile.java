@@ -1,4 +1,4 @@
-package Application;
+package Domain;
 
 public class savedFile {
     String name;
@@ -23,10 +23,6 @@ public class savedFile {
 
     public void setDateModified(String dateModified) {
         this.dateModified = dateModified;
-    }
-
-    public void selectedSavedFile(){
-
     }
 
 }

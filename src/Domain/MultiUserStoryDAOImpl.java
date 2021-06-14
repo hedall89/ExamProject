@@ -1,12 +1,15 @@
-package Application;
+package Domain;
 
+import Application.DashboardController;
+import Application.DatabaseConnector;
+import Application.LoginController;
+import Application.StoryController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
-import javax.sound.midi.SysexMessage;
-import java.awt.*;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -18,7 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MultiUserStoryImpl implements MultiUserStory {
+public class MultiUserStoryDAOImpl implements MultiUserStoryDAO {
     ObservableList<savedFile> multiUserStories = FXCollections.observableArrayList();
     Connection con = null;
     CallableStatement myStmt = null;
@@ -106,13 +109,13 @@ public class MultiUserStoryImpl implements MultiUserStory {
 
     @Override
     public void newMultiUserStory() {
+
+        //insert new story into tblStory
         try{
             //DB connection
             con = DatabaseConnector.con;
 
-            fetchUserID();
-
-            myStmt = con.prepareCall("{call dbo.NewMultiUserStory(?,?,?)}");
+            myStmt = con.prepareCall("{call dbo.NewMultiUserStoryIntotblStory(?,?)}");
 
             Date date = Date.valueOf(LocalDate.now());
 
@@ -123,8 +126,30 @@ public class MultiUserStoryImpl implements MultiUserStory {
             myStmt.registerOutParameter(2, Types.DATE);
             myStmt.setString(2, String.valueOf(date));
 
-            myStmt.registerOutParameter(3, Types.INTEGER);
-            myStmt.setInt(3, userID);
+            myStmt.execute();
+
+
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+
+        //insert new story into tblStoryHandler
+        try{
+            //DB connection
+            con = DatabaseConnector.con;
+
+            fetchUserID();
+            fetchStoryID();
+
+            myStmt = con.prepareCall("{call dbo.NewMultiUserStoryIntotblStoryHandler(?,?)}");
+
+            //sets all the parameters for the stored procedure
+            myStmt.registerOutParameter(1, Types.INTEGER);
+            myStmt.setInt(1, storyID);
+
+            myStmt.registerOutParameter(2, Types.INTEGER);
+            myStmt.setInt(2, userID);
 
             myStmt.execute();
 
@@ -132,6 +157,7 @@ public class MultiUserStoryImpl implements MultiUserStory {
         } catch (SQLException e){
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -184,7 +210,7 @@ public class MultiUserStoryImpl implements MultiUserStory {
 
 
             //saving postIt on at a time
-            for (Application.postIt postIt : StoryController.PostIts) {
+            for (Domain.postIt postIt : StoryController.PostIts) {
                 myStmt = con.prepareCall("{call dbo.saveMultiUserStory(?,?,?,?)}");
 
                 //sets all the parameters for the stored procedure
@@ -283,7 +309,7 @@ public class MultiUserStoryImpl implements MultiUserStory {
                 System.out.println(StoryController.PostIts.size());
 
                 //writes only the text of PostIts
-                for (Application.postIt postIt : StoryController.PostIts) {
+                for (Domain.postIt postIt : StoryController.PostIts) {
                     wr.write("" + postIt.toString());
                     wr.newLine();
 

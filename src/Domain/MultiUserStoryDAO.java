@@ -1,11 +1,10 @@
-package Application;
+package Domain;
 
 import javafx.collections.ObservableList;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
-public interface MultiUserStory {
+public interface MultiUserStoryDAO {
 
     public ObservableList<savedFile> usersMultiUserStories();
 

@@ -32,7 +32,9 @@ public class LoginController {
     private Button btnCreateAccount, btnCancelCreateAccount, btnLoginCreateAccount, btnLogin, btnLoginCancel;
 
     public static String username;
-
+    Connection con = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
 
     @FXML
     void handleButtonAction(ActionEvent event) {
@@ -71,7 +73,7 @@ public class LoginController {
             }
         }
     }
-// Method for Switching between Stages
+    // Method for Switching between Stages
     public static void loadStage(String fxml) {
 
         try {
@@ -90,9 +92,7 @@ public class LoginController {
         con = DatabaseConnector.createConnection();
     }
 
-    Connection con = null;
-    PreparedStatement preparedStatement = null;
-    ResultSet resultSet = null;
+
     //Method for logging in to the app
     private String logIn(){
 

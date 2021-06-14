@@ -1,7 +1,8 @@
-package Application;
+package Domain;
+
+import Domain.postIt;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface TextFromFileDAO {
 

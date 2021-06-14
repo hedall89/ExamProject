@@ -1,5 +1,8 @@
 package Application;
 
+import Domain.MultiUserStoryDAO;
+import Domain.MultiUserStoryDAOImpl;
+import Domain.savedFile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -24,12 +27,6 @@ public class newStoryController {
 
     @FXML
     private TextField txtStoryName;
-
-    //public static savedFile newStory;
-
-    public void initialize() {
-
-    }
 
     @FXML
     void handleButtonAction(ActionEvent event) {
@@ -69,7 +66,7 @@ public class newStoryController {
             DashboardController.selectedProject = new savedFile(txtStoryName.getText(), String.valueOf(LocalDate.now()));
 
             //insert new story into Database
-            MultiUserStory multiUserStory = new MultiUserStoryImpl();
+            MultiUserStoryDAO multiUserStory = new MultiUserStoryDAOImpl();
             multiUserStory.newMultiUserStory();
             StoryController.storyManager = 4;
         }

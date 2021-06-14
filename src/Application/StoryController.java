@@ -1,5 +1,6 @@
 package Application;
 
+import Domain.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,15 +11,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 
 import static Application.LoginController.loadStage;
 
 public class StoryController {
-    private MenuItem item1, item2, item3;
-    static ArrayList<postIt> PostIts = new ArrayList<postIt>();
 
     @FXML
     private AnchorPane ap;
@@ -35,6 +31,8 @@ public class StoryController {
     @FXML
     private Button btnStorySave;
 
+    private MenuItem edit, delete, createUnderPostIt;
+    public static ArrayList<postIt> PostIts = new ArrayList<postIt>();
     public static int storyManager;
 
     public void initialize() {
@@ -54,7 +52,7 @@ public class StoryController {
 
                 //3 = existing multiUserStory, 4 = new multiUserStory
             } if (storyManager == 3 || storyManager == 4){
-                MultiUserStory multiUserStory = new MultiUserStoryImpl();
+                MultiUserStoryDAO multiUserStory = new MultiUserStoryDAOImpl();
                 multiUserStory.saveMultiUserStory();
             }
 
@@ -69,7 +67,6 @@ public class StoryController {
         }
 
     }
-
 
     public void drawPostIt() {
 
@@ -109,10 +106,10 @@ public class StoryController {
         ContextMenu context = new ContextMenu();
 
         //sets the options in the context menu
-         item1 = new MenuItem("Edit PostIt");
-         item2 = new MenuItem("Delete PostIt");
-         item3 = new MenuItem("Create UnderPostIt");
-        context.getItems().addAll(item1,item2,item3);
+         edit = new MenuItem("Edit PostIt");
+         delete = new MenuItem("Delete PostIt");
+         createUnderPostIt = new MenuItem("Create UnderPostIt");
+        context.getItems().addAll(edit,delete,createUnderPostIt);
 
         System.out.println("PostIt number: " + PostIts.indexOf(p));
 
@@ -124,12 +121,12 @@ public class StoryController {
             context.show(ap,event.getScreenX(),event.getScreenY());
         }
 
-        item1.setOnAction((ActionEvent actionEvent) -> {
+        edit.setOnAction((ActionEvent actionEvent) -> {
             editText(p);
         });
 
         //Removing a PostIt
-        item2.setOnAction((ActionEvent actionEvent) -> {
+        delete.setOnAction((ActionEvent actionEvent) -> {
             removePostIt(p);
 
         });
@@ -168,36 +165,12 @@ public class StoryController {
         PostIts.remove(p);
     }
 
-    private void loadFromTextFile() {
-        //Clearing the PostIt array, before adding saved PostIts
-        removeAllPostIts();
-
-        //uses TextFromFileDAO interface to gather all postIts objects made in the textfile.
-        TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
-        PostIts = postItTextDAO.loadTextFile();
-
-        for (Application.postIt postIt : PostIts) {
-
-            //Drawing all PostIts
-            ap.getChildren().addAll(postIt.getR(), postIt.getText());
-            postIt.draw();
-
-            //dragable PostIts
-            postIt.getR().setOnMouseDragged(event -> dragPostIt(event, postIt));
-
-            //Context menu set on Mouseclick(right)
-            postIt.getR().setOnMouseClicked(event -> postItOptions(event, postIt));
-        }
-
-    }
-
     private void removeAllPostIts() {
-        for (Application.postIt postIt : PostIts) {
+        for (Domain.postIt postIt : PostIts) {
             ap.getChildren().removeAll(postIt.getR(), postIt.getText());
 
         }
     }
-
 
     private void storyManagement() {
 
@@ -215,17 +188,40 @@ public class StoryController {
 
     }
 
+    private void loadFromTextFile() {
+        //Clearing the PostIt array, before adding saved PostIts
+        removeAllPostIts();
+
+        //uses TextFromFileDAO interface to gather all postIts objects made in the textfile.
+        TextFromFileDAO postItTextDAO = new TextFromFileDAOImpl();
+        PostIts = postItTextDAO.loadTextFile();
+
+        for (Domain.postIt postIt : PostIts) {
+
+            //Drawing all PostIts
+            ap.getChildren().addAll(postIt.getR(), postIt.getText());
+            postIt.draw();
+
+            //dragable PostIts
+            postIt.getR().setOnMouseDragged(event -> dragPostIt(event, postIt));
+
+            //Context menu set on Mouseclick(right)
+            postIt.getR().setOnMouseClicked(event -> postItOptions(event, postIt));
+        }
+
+    }
+
     private void loadMultiUserStory() {
         removeAllPostIts();
 
-        MultiUserStory multiUserStory = new MultiUserStoryImpl();
+        MultiUserStoryDAO multiUserStory = new MultiUserStoryDAOImpl();
         PostIts = multiUserStory.loadMultiUserStory();
 
         System.out.println("PostIt Array size : " + PostIts.size());
 
 
 
-        for (Application.postIt postIt : PostIts) {
+        for (Domain.postIt postIt : PostIts) {
 
             //Drawing all PostIts
             ap.getChildren().addAll(postIt.getR(), postIt.getText());

@@ -1,4 +1,4 @@
-package Application;
+package Domain;
 
 import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Label;
@@ -59,7 +59,6 @@ public class postIt implements Comparable<postIt> {
         text.setLayoutX(x+1);
         text.setLayoutY(y+1);
     }
-
 
     @Override
     public String toString() {

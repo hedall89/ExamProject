@@ -1,23 +1,24 @@
-package Application;
+package Domain;
 
-import javafx.fxml.FXMLLoader;
+
+import Application.DashboardController;
+import Application.StoryController;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
-
 public class TextFromFileDAOImpl implements TextFromFileDAO {
     Path pathSavedFile = Paths.get("src/SavedFiles");
     Path pathExportStories = Paths.get("src/Exported Stories");
 
     @Override
     public ArrayList<postIt> loadTextFile() {
+
         StoryController.PostIts.clear();
 
         int lineMax = 0;
@@ -83,7 +84,7 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
 
             System.out.println(StoryController.PostIts.size());
 
-            for (Application.postIt postIt : StoryController.PostIts) {
+            for (Domain.postIt postIt : StoryController.PostIts) {
                 wr.write("" + postIt.getX());
                 wr.newLine();
                 wr.write("" + postIt.getY());
@@ -116,7 +117,7 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
                 System.out.println(StoryController.PostIts.size());
 
                 //writes only the text of PostIts
-                for (Application.postIt postIt : StoryController.PostIts) {
+                for (Domain.postIt postIt : StoryController.PostIts) {
                     wr.write("" + postIt.toString());
                     wr.newLine();
 
