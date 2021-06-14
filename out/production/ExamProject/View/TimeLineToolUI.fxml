@@ -112,7 +112,7 @@
                               <Font name="Arial Rounded MT Bold" size="18.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnDeleteStory" layoutX="498.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="Delete Story">
+                        <Button fx:id="btnDeleteStory" layoutX="599.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="Delete Story">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="12.0" />
                            </font>
@@ -129,12 +129,17 @@
                               <TableColumn fx:id="col_singleUserDateModified" prefWidth="122.0" text="Date modified" />
                            </columns>
                         </TableView>
-                        <Button fx:id="btnSelectStory" layoutX="350.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="Select Story">
+                        <Button fx:id="btnSelectStory" layoutX="276.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="Select Story">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnNewStory" layoutX="202.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="New Story">
+                        <Button fx:id="btnNewStory" layoutX="114.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="New Story">
+                           <font>
+                              <Font name="Arial Rounded MT Bold" size="12.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btnExportStory" layoutX="437.0" layoutY="655.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.73" prefHeight="56.0" prefWidth="101.0" text="Export Story">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="12.0" />
                            </font>
