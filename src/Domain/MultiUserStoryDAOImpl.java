@@ -25,8 +25,8 @@ public class MultiUserStoryDAOImpl implements MultiUserStoryDAO {
     ObservableList<savedFile> multiUserStories = FXCollections.observableArrayList();
     Connection con = null;
     CallableStatement myStmt = null;
-    private int userID = 0;
-    private int storyID = 0;
+    public int userID = 0;
+    public int storyID = 0;
     Path pathExportStories = Paths.get("src/Exported Stories");
 
 
@@ -50,7 +50,7 @@ public class MultiUserStoryDAOImpl implements MultiUserStoryDAO {
             ResultSet rs = myStmt.executeQuery();
 
             while (rs.next()) {
-                multiUserStories.add(new savedFile(rs.getString("fldName"), rs.getString("fldLastModified")));
+                multiUserStories.add(new savedFile(rs.getString("fldStoryName"), rs.getString("fldLastModified")));
             }
 
 
@@ -283,8 +283,6 @@ public class MultiUserStoryDAOImpl implements MultiUserStoryDAO {
         } catch (SQLException e){
             e.printStackTrace();
         }
-
-
 
         return StoryController.PostIts;
 
