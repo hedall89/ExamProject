@@ -3,29 +3,51 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="494.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
-   <children>
-      <VBox layoutX="111.0" layoutY="36.0" prefHeight="494.0" prefWidth="322.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.LoginController">
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #b1b1b1;" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="pnlCreateAccount" prefHeight="494.0" prefWidth="322.0" style="-fx-background-color: #fff;">
-               <children>
-                  <Label layoutX="100.0" layoutY="84.0" text="Create Account">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtCAUsername" layoutX="87.0" layoutY="147.0" promptText="Username" />
-                  <TextField fx:id="txtCAPassword" layoutX="87.0" layoutY="195.0" promptText="Password" />
-                  <Button fx:id="btnCreateAccount" layoutX="37.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="101.0" style="-fx-background-color: #276ee7;" text="Create Account" textFill="WHITE" />
-                  <Button fx:id="btnCancelCreateAccount" layoutX="185.0" layoutY="263.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="54.0" prefWidth="101.0" style="-fx-background-color: #276ee7;" text="Cancel" textFill="WHITE" />
-               </children>
-            </Pane>
+            <Label layoutX="85.0" layoutY="149.0" text="Create Account">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtCAUsername" layoutX="76.0" layoutY="204.0" promptText="Username" />
+            <TextField fx:id="txtCAPassword" layoutX="76.0" layoutY="247.0" promptText="Password" />
+            <Button fx:id="btnCreateAccount" layoutX="44.0" layoutY="338.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.7" prefHeight="49.0" prefWidth="108.0" style="-fx-background-color: #434141;" text="Create Account" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="btnCancelCreateAccount" layoutX="164.0" layoutY="338.0" mnemonicParsing="false" onAction="#handleButtonAction" opacity="0.7" prefHeight="49.0" prefWidth="108.0" style="-fx-background-color: #434141;" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="12.0" />
+               </font>
+            </Button>
          </children>
-      </VBox>
-   </children>
-</AnchorPane>
+      </AnchorPane>
+   </right>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: #434141;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="50.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/Time%20line%20Logo.PNG" />
+               </image>
+            </ImageView>
+            <Label layoutX="93.0" layoutY="285.0" text="Create Account" textFill="WHITE">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="17.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

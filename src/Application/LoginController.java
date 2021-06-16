@@ -96,7 +96,7 @@ public class LoginController {
     //Method for logging in to the app
     private String logIn(){
 
-        username = txtLoginUserName.getText().toLowerCase().toString();
+        String username = txtLoginUserName.getText().toLowerCase().toString();
         String password = txtLoginPassword.getText().toString();
         //query
         String sql = "Select * from tblUser where fldUsername = ? and fldPassword = ?";
