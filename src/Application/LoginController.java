@@ -132,7 +132,7 @@ public class LoginController {
         String password = txtCAPassword.getText();
 
         //query
-        String insertQuery = "Insert into tblUser values(null, '" + username + "', '" + password + "')";
+        String insertQuery = "Insert into tblUser values('" + username + "', '" + password + "')";
         String dublicate = "Select * from tblUser where fldUsername = '"+username+"'";
 
         try {

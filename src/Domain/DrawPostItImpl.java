@@ -12,6 +12,8 @@ public class DrawPostItImpl implements DrawPostIt{
         Rectangle rect = new Rectangle();
         rect.setFill(Color.WHITE);
         rect.setStroke(Color.GRAY);
+
+        //PostIt Location
         double rectX = 30;
         double rectY = 30;
 
@@ -20,8 +22,6 @@ public class DrawPostItImpl implements DrawPostIt{
         labelText.setLayoutY(rectY+1);
 
         //creating PostIt Object
-
-
         return new postIt(rectX,rectY,rect,labelText);
     }
 }

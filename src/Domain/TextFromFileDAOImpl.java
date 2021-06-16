@@ -33,8 +33,6 @@ public class TextFromFileDAOImpl implements TextFromFileDAO {
         } catch (Exception e) {
             System.out.println("no lines?");
         }
-
-
         try {
             BufferedReader reader = new BufferedReader(new FileReader(pathSavedFile + "/" + DashboardController.selectedProject.getName()));
 

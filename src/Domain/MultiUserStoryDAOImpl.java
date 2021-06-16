@@ -241,7 +241,6 @@ public class MultiUserStoryDAOImpl implements MultiUserStoryDAO {
     public ArrayList<postIt> loadMultiUserStory() {
         StoryController.PostIts.clear();
 
-
         try{
 
             //DB connection
